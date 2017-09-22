@@ -13,6 +13,22 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('@app_bundle/brick-breaker.html.twig');
+
+    	$bricks=[];
+    	$i=0;
+
+    	$repository = $this
+					->getDoctrine()
+					->getManager()
+					->getRepository('AppBundle:Brick');
+
+		while($repository->find($i+1)){
+			$bricks[$i] = $repository->find($i+1);
+			$i++;
+		}
+
+        return $this->render('@app_bundle/brick-breaker.html.twig', array(
+        					'bricks' => $bricks,
+        					));
     }
 }
