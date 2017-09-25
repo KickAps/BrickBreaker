@@ -24,14 +24,14 @@ class Brick
     /**
      * @var int
      *
-     * @ORM\Column(name="x_axis", type="integer")
+     * @ORM\Column(name="xAxis", type="integer")
      */
     public $xAxis;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="y_axis", type="integer")
+     * @ORM\Column(name="yAxis", type="integer")
      */
     public $yAxis;
 

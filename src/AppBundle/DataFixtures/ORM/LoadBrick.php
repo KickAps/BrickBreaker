@@ -17,11 +17,23 @@ class LoadBrick extends Fixture
                 $brick = new Brick();
                 $brick->setXaxis(10+$j*100);
                 $brick->setYaxis(10+$i*30);
-                $brick->setHp(3);
+                $brick->setHp(1);
 
                 $manager->persist($brick);
             }
         }
+
+        // for ($i = 0; $i < 2; $i++) {
+
+        //     for ($j = 0; $j < 4; $j++) {
+        //         $brick = new Brick();
+        //         $brick->setXaxis(50+$j*150);
+        //         $brick->setYaxis(50+$i*150);
+        //         $brick->setHp(1);
+
+        //         $manager->persist($brick);
+        //     }
+        // }
 
         $manager->flush();
     }
