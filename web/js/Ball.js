@@ -4,7 +4,7 @@ function Ball(){
 	this.y = height *3/4
 	this.diameter = 20
 	this.xspeed = 0
-	this.yspeed = 5
+	this.yspeed = 3
 
 	this.show = function(){
 
@@ -75,6 +75,7 @@ function Ball(){
 
 		for (var i = 0; i < brick.length; i++) {
 
+			// //BOTTOM
 			// if(this.y <= brick[i].y + margin && this.y >= brick[i].y -5)
 			// 	if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w){
 
@@ -82,26 +83,47 @@ function Ball(){
 			// 		brick[i].hp --
 			// 	}
 
-			if(this.y <= brick[i].y + brick[i].h + margin && this.y >= brick[i].y + brick[i].h -5)
-				if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w){
+			// //TOP
+			// if(this.y <= brick[i].y + brick[i].h + margin && this.y >= brick[i].y + brick[i].h -5)
+			// 	if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w){
 
+			// 		this.yspeed *= -1
+			// 		brick[i].hp --
+			// 	}
+
+			// //LEFT
+			// if(this.x <= brick[i].x + margin && this.x >= brick[i].x -5)
+			// 	if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h){
+
+			// 		this.xspeed *= -1
+			// 		brick[i].hp --
+			// 	}
+
+			// //RIGHT
+			// if(this.x <= brick[i].x + brick[i].w + margin && this.x >= brick[i].x + brick[i].w - 5)
+			// 	if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h){
+
+			// 		this.xspeed *= -1
+			// 		brick[i].hp --
+			// 	}
+
+			//BOTTOM / TOP
+			if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w)
+				if(this.y >= brick[i].y - margin && this.y <= brick[i].y + brick[i].h + margin){
+				
 					this.yspeed *= -1
 					brick[i].hp --
 				}
 
-			// if(this.x >= brick[i].x - margin && this.x <= brick[i].x -5)
-			// 	if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h){
+			//LEFT / RIGHT
+			if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h)
+				if(this.x >= brick[i].x - margin && this.x <= brick[i].x + brick[i].w + margin){
+				
+					this.xspeed *= -1
+					brick[i].hp --
+				}
 
-			// 		this.xspeed *= -1
-			// 		//brick[i].hp --
-			// 	}
-
-			// if(this.x >= brick[i].x + brick[i].w - margin && this.x <= brick[i].x + brick[i].w -5)
-			// 	if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h){
-
-			// 		this.xspeed *= -1
-			// 		//brick[i].hp --
-			// 	}
+			brick[i].update(i)
  		}
 	}
 }

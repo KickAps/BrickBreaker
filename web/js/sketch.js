@@ -42,18 +42,13 @@ function draw(){
   background(0)
   stroke(255)
 
+  win()
+
   line(width/2, height-50, width/2, height)
 
   for (var i = 0; i < brick.length; i++) {
-    brick[i].update(i)
-  }
-
-  for (var i = 0; i < brick.length; i++) {
     brick[i].show()
-    //brick[i].update(i)
   }
-
-
 
   player1.update(1)
   player1.show(1)
@@ -66,8 +61,23 @@ function draw(){
   ball.show()
   ball.playerBounce(player1)
   ball.playerBounce(player2)
-
   ball.brickBounce(brick)
+  
+}
+
+function win(){
+
+  if(brick.length == 0){
+
+    alert('! WIN !')
+    ball.init()
+
+    bricksTab = jQuery('.class-bricks').data('bricks')
+
+    for (var i = 0; i < bricksTab.length; i++) {
+        brick.push(new Brick(bricksTab[i]))
+    }
+  }
 }
 
 

@@ -1,7 +1,7 @@
 function Brick(bricks){
 
-	this.w = 80
-	this.h = 20
+	this.w = 60
+	this.h = 15
 
 	this.x = bricks.xAxis
 	this.y = bricks.yAxis
@@ -15,8 +15,12 @@ function Brick(bricks){
 	}
 
 	this.update = function(i){
-		if(brick[i].hp == 0){
+		if(brick[i].hp <= 0){
 			brick.splice(i, 1)
 		}
 	}
+
+	//this.end = function(){
+		
+	//}
 }
