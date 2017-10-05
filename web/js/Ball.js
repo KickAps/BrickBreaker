@@ -6,19 +6,22 @@ function Ball(){
 	this.xspeed = 0
 	this.yspeed = 3
 
+	//Show the ball
 	this.show = function(){
 
 		fill(0, 255, 0) //GREEN
 		ellipse(this.x, this.y, this.diameter, this.diameter)
 	}
 
+	//Update the ball position 
 	this.update = function(){
 
 		this.x += this.xspeed
 		this.y += this.yspeed
 	}
 
-	this.edges = function(){
+	//Edges collisions 
+	this.edgeBounce = function(){
 
 		if(this.x<margin || this.x>width-margin)
 			this.xspeed *= -1
@@ -31,15 +34,17 @@ function Ball(){
 		}
 	}
 
+	//Ball initialization 
 	this.init = function(){
 		this.x = width/4
 		this.y = height *3/4
 		this.xspeed = 0
 	}
 
+	//Players collisions 
 	this.playerBounce = function(player){ 
 
-		if(this.y >= player.y - margin && this.y < player.y + player.h/2 - margin ){
+		if(this.y >= player.y - margin && this.y <= player.y + player.h/2 - margin ){
 
 			if(this.x >= player.x - margin && this.x <= player.x + player.w + margin){
 
@@ -71,6 +76,7 @@ function Ball(){
 		}
 	}
 
+	//Bricks collisions ( in development ) 
 	this.brickBounce = function(brick){
 
 		for (var i = 0; i < brick.length; i++) {

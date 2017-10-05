@@ -20,16 +20,10 @@ function Player(playerNumber){
 		this.name = 'Player 2'
 	}
 		
-	this.show = function(playerNumber){
+	//
+	this.show = function(color){
 
-		if(playerNumber == 1){
-			fill(255, 0, 0) //RED
-		}
-
-		if(playerNumber == 2){
-			fill(0, 0, 255) //BLUE
-		}
-
+		fill(color)
 		rect(this.x, this.y, this.w, this.h)
 	}
 

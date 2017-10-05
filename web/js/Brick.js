@@ -8,19 +8,17 @@ function Brick(bricks){
 
 	this.hp = bricks.hp
 		
+	//Show the brick
 	this.show = function(){
 
 		fill(255) //WHITE
 		rect(this.x, this.y, this.w, this.h)
 	}
 
+	//Update the brick state 
 	this.update = function(i){
 		if(brick[i].hp <= 0){
 			brick.splice(i, 1)
 		}
 	}
-
-	//this.end = function(){
-		
-	//}
 }
