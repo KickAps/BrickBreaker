@@ -4,11 +4,12 @@ function Player(playerNumber){
 	this.h = 10
 
 	this.x
-	this.y = height-this.h-10
+	this.y = height-this.h-60
 
 	this.xspeed = 4
 
 	this.name = ''
+	this.score = 0
 
 	if(playerNumber == 1){
 		this.x = width/4 - 40
@@ -50,5 +51,28 @@ function Player(playerNumber){
 			}
 			this.x = constrain(this.x, width/2 + 1, width-this.w - 1)
 		}
+	}
+
+	this.choosePlayerName = function(player){
+  
+  		var confirmation = null
+  		this.name = null
+
+  		while(this.name == null){
+
+    		this.name = prompt('Enter Pseudo ' + player, player);
+
+    		if(this.name == null || this.name == ''){
+    		  this.name = null
+    		  continue;
+    		}
+
+    		/*confirmation = confirm('Are you ' + this.name + ' ?');
+
+    		if(confirmation != true){
+    		  this.name = null
+    		  continue;
+    		}*/
+  		}
 	}
 }

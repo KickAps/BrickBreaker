@@ -1,3 +1,4 @@
+
 //The ball
 var ball
 
@@ -17,6 +18,8 @@ var width = 1000
 //Margin for the ball collision
 var margin = 8
 
+
+
 function setup() {
 
   createCanvas(1000, 500)
@@ -26,12 +29,18 @@ function setup() {
   player1 = new Player(1)
   player2 = new Player(2)
 
+  // choose players names
+  player1.choosePlayerName('Player1')
+  player2.choosePlayerName('Player2')
+  //alert('Player 1 : ' + player1.name + '\nPlayer 2 : ' + player2.name)
+
   //Get the bricksTab from HTML
   bricksTab = jQuery('.class-bricks').data('bricks')
 
   for (var i = 0; i < bricksTab.length; i++) {
     brick.push(new Brick(bricksTab[i]))
   }  
+
 }
   
 function draw(){
@@ -39,11 +48,12 @@ function draw(){
   background(0) //BLACK
   stroke(255) //WHITE
 
+
   //Test the end of the game ( version n°1 )
   win()
 
   //Middle line
-  line(width/2, height-50, width/2, height)
+  line(width/2, height-100, width/2, height)
 
   //Show all bricks
   for (var i = 0; i < brick.length; i++) {
