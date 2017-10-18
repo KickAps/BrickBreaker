@@ -128,6 +128,7 @@ function Ball(){
 					this.xspeed *= -1
 					brick[i].hp --
 				}
+				
 
 			brick[i].update(i)
  		}
