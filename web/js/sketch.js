@@ -32,6 +32,7 @@ function setup() {
   // choose players names
   player1.choosePlayerName('Player1')
   player2.choosePlayerName('Player2')
+
   //alert('Player 1 : ' + player1.name + '\nPlayer 2 : ' + player2.name)
 
   //Get the bricksTab from HTML
@@ -48,12 +49,21 @@ function draw(){
   background(0) //BLACK
   stroke(255) //WHITE
 
+  fill(255) //WHITE
+
+  textSize(32);
+
+  title = text(player1.name + " : ", 15, height-15)
+  title = text(player2.name + " : ", width/2 + 15, height-15)
+
 
   //Test the end of the game ( version n°1 )
   win()
 
   //Middle line
   line(width/2, height-100, width/2, height)
+
+  line(0, height-50, width, height-50)
 
   //Show all bricks
   for (var i = 0; i < brick.length; i++) {
@@ -91,5 +101,4 @@ function win(){
     }
   }
 }
-
 
