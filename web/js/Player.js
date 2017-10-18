@@ -10,6 +10,7 @@ function Player(playerNumber){
 
 	this.name = ''
 	this.score = 0
+	this.iHaveBall = false
 
 	if(playerNumber == 1){
 		this.x = width/4 - 40

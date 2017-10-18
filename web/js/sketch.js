@@ -53,8 +53,8 @@ function draw(){
 
   textSize(32);
 
-  title = text(player1.name + " : ", 15, height-15)
-  title = text(player2.name + " : ", width/2 + 15, height-15)
+  title = text(player1.name + " : " + player1.score, 15, height-15)
+  title = text(player2.name + " : " + player2.score, width/2 + 15, height-15)
 
 
   //Test the end of the game ( version n°1 )
@@ -78,9 +78,14 @@ function draw(){
   player2.show('BLUE')
 
   //Players, edges and bricks collissions
-  ball.playerBounce(player1)
-  ball.playerBounce(player2)
-  ball.brickBounce(brick)
+  ball.playerBounce(player1, player2)
+  ball.playerBounce(player2, player1)
+
+  if(player1.iHaveBall == true)
+    ball.brickBounce(brick, player1)
+  else
+    ball.brickBounce(brick, player2)
+
   ball.edgeBounce()
 
   //Update and show the ball

@@ -42,30 +42,32 @@ function Ball(){
 	}
 
 	//Players collisions 
-	this.playerBounce = function(player){ 
+	this.playerBounce = function(playerTrue, playerFalse){ 
 
-		if(this.y >= player.y - margin && this.y <= player.y + player.h/2 - margin ){
+		if(this.y >= playerTrue.y - margin && this.y <= playerTrue.y + playerTrue.h/2 - margin ){
 
-			if(this.x >= player.x - margin && this.x <= player.x + player.w + margin){
+			if(this.x >= playerTrue.x - margin && this.x <= playerTrue.x + playerTrue.w + margin){
 
 				this.yspeed *= -1
+				playerTrue.iHaveBall = true
+				playerFalse.iHaveBall = false
 
 				switch (true) {
 
-	                case (this.x <= player.x + player.w / 5):
+	                case (this.x <= playerTrue.x + playerTrue.w / 5):
 	                    this.xspeed = -4
 	                    break
 
-	                case (this.x <= player.x + player.w * 2/5):
+	                case (this.x <= playerTrue.x + playerTrue.w * 2/5):
 	                    this.xspeed = -2
 	                    break
 
-	                case (this.x <= player.x + player.w * 3/5):
+	                case (this.x <= playerTrue.x + playerTrue.w * 3/5):
 	                    
 						this.xspeed = 0
 	                    break
 
-	                case (this.x <= player.x + player.w * 4/5):
+	                case (this.x <= playerTrue.x + playerTrue.w * 4/5):
 	                    this.xspeed = 2
 	                    break
 
@@ -77,7 +79,7 @@ function Ball(){
 	}
 
 	//Bricks collisions ( in development ) 
-	this.brickBounce = function(brick){
+	this.brickBounce = function(brick, player){
 
 		for (var i = 0; i < brick.length; i++) {
 
@@ -119,6 +121,7 @@ function Ball(){
 				
 					this.yspeed *= -1
 					brick[i].hp --
+					player.score += 10
 				}
 
 			//LEFT / RIGHT
@@ -127,6 +130,7 @@ function Ball(){
 				
 					this.xspeed *= -1
 					brick[i].hp --
+					player.score += 10
 				}
 				
 
