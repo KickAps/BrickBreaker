@@ -4,7 +4,7 @@ function Ball(){
 	this.y = height *3/4
 	this.diameter = 20
 	this.xspeed = 0
-	this.yspeed = 3
+	this.yspeed = 5
 
 	//Show the ball
 	this.show = function(){
@@ -128,6 +128,7 @@ function Ball(){
 					this.xspeed *= -1
 					brick[i].hp --
 				}
+				
 
 			brick[i].update(i)
  		}
