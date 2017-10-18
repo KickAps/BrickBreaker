@@ -33,6 +33,8 @@ function setup() {
   player1.choosePlayerName('Player1')
   player2.choosePlayerName('Player2')
 
+  ball.init()
+
   //alert('Player 1 : ' + player1.name + '\nPlayer 2 : ' + player2.name)
 
   //Get the bricksTab from HTML
@@ -53,12 +55,12 @@ function draw(){
 
   textSize(32);
 
-  title = text(player1.name + " : " + player1.score, 15, height-15)
-  title = text(player2.name + " : " + player2.score, width/2 + 15, height-15)
+  title = text(player1.name + " : " + player1.score + "        Lifes : " + player1.life, 15, height-15)
+  title = text(player2.name + " : " + player2.score + "        Lifes : " + player2.life, width/2 + 15, height-15)
 
 
   //Test the end of the game ( version n°1 )
-  win()
+    win()
 
   //Middle line
   line(width/2, height-100, width/2, height)
@@ -96,9 +98,41 @@ function draw(){
 
 function win(){
 
+  // if no life anymore
+  if(player2.life <= 0){
+    alert(player1.name + ' IS THE WINNER !!!');
+
+    //setup()
+    ball.init()
+
+    for (var i = 0; i < bricksTab.length; i++) {
+        brick.push(new Brick(bricksTab[i]))
+    }
+  }
+  else if(player1.life <= 0){
+    alert(player2.name + ' IS THE WINNER !!!');
+
+    //setup()
+    ball.init()
+
+    for (var i = 0; i < bricksTab.length; i++) {
+        brick.push(new Brick(bricksTab[i]))
+    }
+  }
+
+  // if no bricks anymore
   if(brick.length == 0){
 
-    alert('! WIN !')
+    
+    if(player1.score > player2.score)
+      alert(player1.name + ' IS THE WINNER !!!');
+    else if(player1.score < player2.score)
+      alert(player2.name + ' IS THE WINNER !!!');
+    else
+      alert('!!! DRAW !!!');
+
+
+    //setup()
     ball.init()
 
     for (var i = 0; i < bricksTab.length; i++) {

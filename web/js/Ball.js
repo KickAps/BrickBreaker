@@ -1,7 +1,7 @@
 function Ball(){
 
-	this.x = width/4
-	this.y = height *3/4
+	this.x = width/2
+	this.y = height /2
 	this.diameter = 20
 	this.xspeed = 0
 	this.yspeed = 5
@@ -30,15 +30,26 @@ function Ball(){
 			this.yspeed *= -1
 
 		if(this.y>height+this.diameter/2){
+
+			// life management
+			if(this.x < width/2)
+				player1.life --
+			else if(this.x > width/2)
+				player2.life --
+
 			this.init()
 		}
 	}
 
 	//Ball initialization 
 	this.init = function(){
-		this.x = width/4
-		this.y = height *3/4
-		this.xspeed = 0
+		this.x = width/2
+		this.y = height /2
+
+		alert("Ready ?")
+
+		this.xspeed = floor(random(-5, 5))
+		this.yspeed = 3		
 	}
 
 	//Players collisions 
