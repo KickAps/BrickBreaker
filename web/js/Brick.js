@@ -1,7 +1,7 @@
 function Brick(bricks){
 
-	this.w = 60
-	this.h = 15
+	this.w = 80
+	this.h = 25
 
 	this.x = bricks.xAxis
 	this.y = bricks.yAxis
@@ -11,7 +11,7 @@ function Brick(bricks){
 	//Show the brick
 	this.show = function(){
 
-		fill(255) //WHITE
+		fill(122) //GREY
 		rect(this.x, this.y, this.w, this.h)
 	}
 

@@ -55,7 +55,7 @@ function Ball(){
 		if(this.y<margin)
 			this.yspeed *= -1
 
-		if(this.y>height+this.diameter/2){
+		if(this.y>height - 50){
 
 			// life management
 			if(this.x < width/2)

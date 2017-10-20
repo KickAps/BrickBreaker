@@ -19,6 +19,9 @@ var width = 1000
 var margin = 8
 
 
+var heart_ico
+
+
 
 function setup() {
 
@@ -44,6 +47,8 @@ function setup() {
     brick.push(new Brick(bricksTab[i]))
   }
 
+
+  heart_ico = loadImage("heart.ico")
 }
 
   
@@ -51,25 +56,28 @@ function draw(){
  
   background(0) //BLACK
   stroke(255) //WHITE
-
   fill(255) //WHITE
 
+  //display names&scores&lifes
   textSize(32);
 
-  //title = text(player1.name + " : " + player1.score + "        Lifes : " + player1.life, 15, height-15)
-  //title = text(player2.name + " : " + player2.score + "        Lifes : " + player2.life, width/2 + 15, height-15)
-
   textAlign(RIGHT);
-  title = text(player1.life, 50, height-15)
-  title = text(player2.score, width/2 + 50, height-15)
+  title = text(player2.score, width/2 + 100, height-15)
 
   textAlign(CENTER);
   title = text(player1.name, width/4, height-15)
   title = text(player2.name, width*3/4, height-15)
 
   textAlign(LEFT);
-  title = text(player1.score, width/2 - 50, height-15)
-  title = text(player2.life, width - 50, height-15)
+  title = text(player1.score, width/2 - 100, height-15)
+
+  //hearts management
+  for(var i = 0; i < player1.life; i++){
+    image(heart_ico, 15 + i*30, height-38, width/40, height/20)
+  }
+  for(var i = 0; i < player2.life; i++){
+    image(heart_ico, width - (40 + i*30), height-38, width/40, height/20)
+  }
   
 
   //Test the end of the game ( version n°1 )

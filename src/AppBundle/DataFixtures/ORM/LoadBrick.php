@@ -24,13 +24,27 @@ class LoadBrick extends Fixture
         //}
         
 
-
-        for ($i = 0; $i < 8; $i++) {
+        // scheme 1, bricks spaced out
+        /*for ($i = 0; $i < 8; $i++) {
 
             for ($j = 0; $j < 10; $j++) {
                 $brick = new Brick();
-                $brick->setXaxis(10+$j*100);
-                $brick->setYaxis(10+$i*30);
+                $brick->setXaxis(20+$j*100);
+                $brick->setYaxis(20+$i*30);
+                $brick->setHp(1);
+
+                $manager->persist($brick);
+            }
+        }*/
+
+
+        // scheme 2, bricks sticked
+        for ($i = 0; $i < 7; $i++) {
+
+            for ($j = 0; $j < 12; $j++) {
+                $brick = new Brick();
+                $brick->setXaxis(20+$j*80);
+                $brick->setYaxis(50+$i*25);
                 $brick->setHp(1);
 
                 $manager->persist($brick);
