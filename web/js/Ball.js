@@ -5,6 +5,7 @@ function Ball(){
 	this.diameter = 20
 	this.xspeed = 0
 	this.yspeed = 5
+	this.canMove = false
 
 	//Show the ball
 	this.show = function(){
@@ -13,11 +14,36 @@ function Ball(){
 		ellipse(this.x, this.y, this.diameter, this.diameter)
 	}
 
+	//Ball initialization 
+	this.init = function(){
+		this.x = width/2
+		this.y = height /2
+		this.xspeed = floor(random(-5, 5))
+		this.yspeed = 3
+		this.canMove = false
+	}
+
+	//Ball moving right
+	this.move = function(){
+		if(keyIsDown(32)){ // SPACE
+			this.canMove = true
+		}
+	}
+
 	//Update the ball position 
 	this.update = function(){
 
-		this.x += this.xspeed
-		this.y += this.yspeed
+		this.move()
+
+		if(this.canMove == true){
+			this.x += this.xspeed
+			this.y += this.yspeed
+		}
+		else{
+			textAlign(CENTER);
+			fill('WHITE')
+			title = text("PRESS SPACE\nTO START", width/2, height/2 + 50)
+		}
 	}
 
 	//Edges collisions 
@@ -41,44 +67,33 @@ function Ball(){
 		}
 	}
 
-	//Ball initialization 
-	this.init = function(){
-		this.x = width/2
-		this.y = height /2
-
-		alert("Ready ?")
-
-		this.xspeed = floor(random(-5, 5))
-		this.yspeed = 3		
-	}
-
 	//Players collisions 
-	this.playerBounce = function(playerTrue, playerFalse){ 
+	this.playerBounce = function(currentPlayer, previousPlayer){ 
 
-		if(this.y >= playerTrue.y - margin && this.y <= playerTrue.y + playerTrue.h/2 - margin ){
+		if(this.y >= currentPlayer.y - margin && this.y <= currentPlayer.y + currentPlayer.h/2 - margin ){
 
-			if(this.x >= playerTrue.x - margin && this.x <= playerTrue.x + playerTrue.w + margin){
+			if(this.x >= currentPlayer.x - margin && this.x <= currentPlayer.x + currentPlayer.w + margin){
 
 				this.yspeed *= -1
-				playerTrue.iHaveBall = true
-				playerFalse.iHaveBall = false
+				currentPlayer.iHaveBall = true
+				previousPlayer.iHaveBall = false
 
 				switch (true) {
 
-	                case (this.x <= playerTrue.x + playerTrue.w / 5):
+	                case (this.x <= currentPlayer.x + currentPlayer.w / 5):
 	                    this.xspeed = -4
 	                    break
 
-	                case (this.x <= playerTrue.x + playerTrue.w * 2/5):
+	                case (this.x <= currentPlayer.x + currentPlayer.w * 2/5):
 	                    this.xspeed = -2
 	                    break
 
-	                case (this.x <= playerTrue.x + playerTrue.w * 3/5):
+	                case (this.x <= currentPlayer.x + currentPlayer.w * 3/5):
 	                    
 						this.xspeed = 0
 	                    break
 
-	                case (this.x <= playerTrue.x + playerTrue.w * 4/5):
+	                case (this.x <= currentPlayer.x + currentPlayer.w * 4/5):
 	                    this.xspeed = 2
 	                    break
 
@@ -129,7 +144,7 @@ function Ball(){
 			//BOTTOM / TOP
 			if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w)
 				if(this.y >= brick[i].y - margin && this.y <= brick[i].y + brick[i].h + margin){
-				
+
 					this.yspeed *= -1
 					brick[i].hp --
 					player.score += 10
@@ -138,12 +153,11 @@ function Ball(){
 			//LEFT / RIGHT
 			if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h)
 				if(this.x >= brick[i].x - margin && this.x <= brick[i].x + brick[i].w + margin){
-				
+
 					this.xspeed *= -1
 					brick[i].hp --
 					player.score += 10
 				}
-				
 
 			brick[i].update(i)
  		}

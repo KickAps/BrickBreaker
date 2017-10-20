@@ -10,7 +10,7 @@ var player2
 var brick = []
 
 //The bricks tab
-var bricksTab
+var bricksTab = []
 
 var height = 500
 var width = 1000
@@ -42,9 +42,10 @@ function setup() {
 
   for (var i = 0; i < bricksTab.length; i++) {
     brick.push(new Brick(bricksTab[i]))
-  }  
+  }
 
 }
+
   
 function draw(){
  
@@ -55,9 +56,21 @@ function draw(){
 
   textSize(32);
 
-  title = text(player1.name + " : " + player1.score + "        Lifes : " + player1.life, 15, height-15)
-  title = text(player2.name + " : " + player2.score + "        Lifes : " + player2.life, width/2 + 15, height-15)
+  //title = text(player1.name + " : " + player1.score + "        Lifes : " + player1.life, 15, height-15)
+  //title = text(player2.name + " : " + player2.score + "        Lifes : " + player2.life, width/2 + 15, height-15)
 
+  textAlign(RIGHT);
+  title = text(player1.life, 50, height-15)
+  title = text(player2.score, width/2 + 50, height-15)
+
+  textAlign(CENTER);
+  title = text(player1.name, width/4, height-15)
+  title = text(player2.name, width*3/4, height-15)
+
+  textAlign(LEFT);
+  title = text(player1.score, width/2 - 50, height-15)
+  title = text(player2.life, width - 50, height-15)
+  
 
   //Test the end of the game ( version n°1 )
     win()
@@ -102,22 +115,12 @@ function win(){
   if(player2.life <= 0){
     alert(player1.name + ' IS THE WINNER !!!');
 
-    //setup()
-    ball.init()
-
-    for (var i = 0; i < bricksTab.length; i++) {
-        brick.push(new Brick(bricksTab[i]))
-    }
+    restart()
   }
   else if(player1.life <= 0){
     alert(player2.name + ' IS THE WINNER !!!');
 
-    //setup()
-    ball.init()
-
-    for (var i = 0; i < bricksTab.length; i++) {
-        brick.push(new Brick(bricksTab[i]))
-    }
+    restart()
   }
 
   // if no bricks anymore
@@ -131,13 +134,18 @@ function win(){
     else
       alert('!!! DRAW !!!');
 
-
-    //setup()
-    ball.init()
-
-    for (var i = 0; i < bricksTab.length; i++) {
-        brick.push(new Brick(bricksTab[i]))
-    }
+    restart()
   }
 }
 
+function restart(){
+  alert("!!! New Game !!!")
+
+  brick = []
+  delete ball
+  delete player1
+  delete player2
+  noCanvas()
+
+  setup()
+}
