@@ -78,7 +78,7 @@ function Brick(bricks){
 	            break
 
 	        case (this.power == 'cloneball'): //cloneball
-	            cloneball()
+	            cloneball(ballTab)
 	            break
 
 	        case (this.power == 'teleport'): //teleport

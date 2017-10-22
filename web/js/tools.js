@@ -91,13 +91,17 @@ function superball(player, ball, brick){
     player.score += 10 + player.combo
     player.combo ++
   }
-
-  slowball(ball)
 }
 
 
-function cloneball(ball){
 
+function cloneball(ballTab){
+
+  ballTab.push(new Ball() )
+
+  var i = ballTab.length -1
+  ballTab[i].init()
+  ballTab[i].canMove = true
 }
 
 

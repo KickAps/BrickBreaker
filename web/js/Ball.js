@@ -53,7 +53,7 @@ function Ball(){
 	}
 
 	//Edges collisions 
-	this.edgeBounce = function(){
+	this.edgeBounce = function(i){
 
 		// Bounce on canvas Edges
 		if(this.x<margin || this.x>width-margin)
@@ -62,7 +62,7 @@ function Ball(){
 		if(this.y<margin)
 			this.yspeed *= -1
 
-		//Under player cursors (bottom adge), out of the game
+		//Under player cursors (bottom edge), out of the game
 		if(this.y>height - 50){
 
 			//Players life management
@@ -73,9 +73,18 @@ function Ball(){
 				player2.life --
 			}
 
-			freezeGame(this, player1, player2)
+			//Restart the sketch with a freeze screen if this is the last ball to disappear ...
+			if(ballTab.length < 2){
+				freezeGame(this, player1, player2)
+				this.init()
+			}
+			//... only destroy a ball in the tab
+			else{
+				//alert("hey else start")
+				ballTab.splice(i, 1)
 
-			this.init()
+				//alert("hey else end")
+			}
 		}
 	}
 
@@ -169,6 +178,7 @@ function Ball(){
 
 					if(brick[i].hp > -1){
 						superball(player, this, brick[i])
+						slowball(this)
 					}
 				}
 
@@ -183,6 +193,7 @@ function Ball(){
 
 					if(brick[i].hp > -1){
 						superball(player, this, brick[i])
+						slowball(this)
 					}
 				}
 

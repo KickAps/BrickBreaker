@@ -1,6 +1,6 @@
 
 //The ball
-var ball
+var ballTab = []
 
 //The players
 var player1
@@ -32,7 +32,7 @@ function setup() {
   createCanvas(1000, 500)
   frameRate(60)
 
-  ball = new Ball()
+  ballTab.push(new Ball() )
   player1 = new Player(1)
   player2 = new Player(2)
 
@@ -40,7 +40,7 @@ function setup() {
   player1.choosePlayerName('Player1')
   player2.choosePlayerName('Player2')
 
-  ball.init()
+  ballTab[0].init()
 
   //Get the bricksTab from HTML
   bricksTab = jQuery('.class-bricks').data('bricks')
@@ -81,8 +81,8 @@ function draw(){
   title = text(player1.score, width/2 - 100, height-15)
 
   //test powers
-  title = text('Supertouch : ' + ball.supertouch, 50, height/2 + 50)
-  title = text('Slowtouch : ' + ball.slowtouch, 50, height/2 + 100)
+  // title = text('Supertouch : ' + ball[0].supertouch, 50, height/2 + 50)
+  // title = text('Slowtouch : ' + ball[0].slowtouch, 50, height/2 + 100)
 
   //hearts displayaing
   for(var i = 0; i < player1.life; i++){
@@ -117,22 +117,29 @@ function draw(){
   player2.update(2)
   player2.show('BLUE')
 
+
   //Players, edges and bricks collissions
-  ball.playerBounce(player1, player2)
-  ball.playerBounce(player2, player1)
+  for( i=0 ; i<ballTab.length ; i++){
 
-  if(player1.iHaveBall == true){
-    ball.brickBounce(brick, player1)
+    ballTab[i].playerBounce(player1, player2)
+    ballTab[i].playerBounce(player2, player1)
+
+    if(player1.iHaveBall == true){
+      ballTab[i].brickBounce(brick, player1)
+    }
+    else{
+      ballTab[i].brickBounce(brick, player2)
+    }
+
+    var lastBallTabLength = ballTab.length
+    ballTab[i].edgeBounce(i)
+
+    if(lastBallTabLength == ballTab.length){
+      //Update and show the ball
+      ballTab[i].update()
+      ballTab[i].show()
+    }
   }
-  else{
-    ball.brickBounce(brick, player2)
-  }
-
-  ball.edgeBounce()
-
-  //Update and show the ball
-  ball.update()
-  ball.show()
   
 }
 
@@ -143,7 +150,7 @@ function restart(){
   alert("!!! New Game !!!")
 
   brick = []
-  delete ball
+  ballTab = []
   delete player1
   delete player2
   noCanvas()

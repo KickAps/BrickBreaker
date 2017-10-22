@@ -52,6 +52,10 @@ class LoadBrick extends Fixture
                 }
                 else if($i == 6 && $j == 7){
                   $brick->setPower('superball');
+                }else if($i == 6 && $j == 5){
+                  $brick->setPower('cloneball');
+                }else if($i == 6 && $j == 6){
+                  $brick->setPower('cloneball');
                 }
                 else
                 $brick->setPower('');
