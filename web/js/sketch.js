@@ -25,8 +25,6 @@ var margin = 10
 //For the heart(life points) icon
 var heart_ico
 
-
-
 function setup() {
 
   createCanvas(1000, 500)
@@ -67,8 +65,8 @@ function draw(){
   stroke(255) //WHITE
   fill(255) //WHITE
 
-  //display names&scores&lifes
-  textSize(32);
+  //display lifes / names / scores
+  textSize(25);
 
   textAlign(RIGHT);
   title = text(player2.score, width/2 + 100, height-15)
@@ -95,9 +93,8 @@ function draw(){
     image(heart_ico, width - (40 + i*30), height-38, width/40, height/20)
   }
   
-
-  //Test the end of the game
-    win()
+  //Test the end of the game ( version n°1 )
+  win()
 
   //Middle line
   line(width/2, height-100, width/2, height)

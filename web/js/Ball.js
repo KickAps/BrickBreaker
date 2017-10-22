@@ -96,25 +96,29 @@ function Ball(){
 
 				switch (true) {
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w / 5):
-	                    this.xspeed = -4
+	                case (this.x <= currentPlayer.x + currentPlayer.w / 6):
+	                    this.xspeed = -5
 	                    break
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w * 2/5):
-	                    this.xspeed = -2
+	                case (this.x <= currentPlayer.x + currentPlayer.w * 2/6):
+	                    this.xspeed = -3
 	                    break
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w * 3/5):
+	                case (this.x <= currentPlayer.x + currentPlayer.w * 3/6):
 	                    
-						this.xspeed = 0
+						this.xspeed = -1
 	                    break
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w * 4/5):
-	                    this.xspeed = 2
+	                case (this.x <= currentPlayer.x + currentPlayer.w * 4/6):
+	                    this.xspeed = 1
+	                    break
+
+                    case (this.x <= currentPlayer.x + currentPlayer.w * 5/6):
+	                    this.xspeed = 3
 	                    break
 
 	                default:
-	                    this.xspeed = 4
+	                    this.xspeed = 5
 	            }
 			}
 		}
