@@ -6,19 +6,23 @@ var ball
 var player1
 var player2
 
-//The bricks
+//The bricks tab (game)
 var brick = []
 
-//The bricks tab
+//Number of undestructible bricks (brick.hp == -1)
+var undestructibleBricks = 0
+
+//The bricks tab (BDD)
 var bricksTab = []
 
+//Canvas size
 var height = 500
 var width = 1000
 
 //Margin for the ball collision
-var margin = 8
+var margin = 10
 
-
+//For the heart(life points) icon
 var heart_ico
 
 
@@ -38,20 +42,25 @@ function setup() {
 
   ball.init()
 
-  //alert('Player 1 : ' + player1.name + '\nPlayer 2 : ' + player2.name)
-
   //Get the bricksTab from HTML
   bricksTab = jQuery('.class-bricks').data('bricks')
 
   for (var i = 0; i < bricksTab.length; i++) {
-    brick.push(new Brick(bricksTab[i]))
-  }
 
+    brick.push(new Brick(bricksTab[i]))
+
+    if(brick[i].hp == -1){
+      undestructibleBricks++
+    }
+  }
 
   heart_ico = loadImage("heart.ico")
 }
 
-  
+
+
+
+//main loop
 function draw(){
  
   background(0) //BLACK
@@ -71,25 +80,33 @@ function draw(){
   textAlign(LEFT);
   title = text(player1.score, width/2 - 100, height-15)
 
-  //hearts management
+  //test powers
+  title = text('Supertouch : ' + ball.supertouch, 50, height/2 + 50)
+  title = text('Slowtouch : ' + ball.slowtouch, 50, height/2 + 100)
+
+  //hearts displayaing
   for(var i = 0; i < player1.life; i++){
+
     image(heart_ico, 15 + i*30, height-38, width/40, height/20)
   }
+
   for(var i = 0; i < player2.life; i++){
+
     image(heart_ico, width - (40 + i*30), height-38, width/40, height/20)
   }
   
 
-  //Test the end of the game ( version n°1 )
+  //Test the end of the game
     win()
 
   //Middle line
   line(width/2, height-100, width/2, height)
-
+  //Score&names&life line
   line(0, height-50, width, height-50)
 
   //Show all bricks
   for (var i = 0; i < brick.length; i++) {
+
     brick[i].show()
   }
 
@@ -104,10 +121,12 @@ function draw(){
   ball.playerBounce(player1, player2)
   ball.playerBounce(player2, player1)
 
-  if(player1.iHaveBall == true)
+  if(player1.iHaveBall == true){
     ball.brickBounce(brick, player1)
-  else
+  }
+  else{
     ball.brickBounce(brick, player2)
+  }
 
   ball.edgeBounce()
 
@@ -117,36 +136,10 @@ function draw(){
   
 }
 
-function win(){
 
-  // if no life anymore
-  if(player2.life <= 0){
-    alert(player1.name + ' IS THE WINNER !!!');
-
-    restart()
-  }
-  else if(player1.life <= 0){
-    alert(player2.name + ' IS THE WINNER !!!');
-
-    restart()
-  }
-
-  // if no bricks anymore
-  if(brick.length == 0){
-
-    
-    if(player1.score > player2.score)
-      alert(player1.name + ' IS THE WINNER !!!');
-    else if(player1.score < player2.score)
-      alert(player2.name + ' IS THE WINNER !!!');
-    else
-      alert('!!! DRAW !!!');
-
-    restart()
-  }
-}
-
+//Empty/delete all tabs and objects, to restart
 function restart(){
+  
   alert("!!! New Game !!!")
 
   brick = []

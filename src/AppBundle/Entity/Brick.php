@@ -1,9 +1,6 @@
 <?php
-
 namespace AppBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Brick
  *
@@ -21,12 +18,14 @@ class Brick
      */
     private $id;
 
+
     /**
      * @var int
      *
      * @ORM\Column(name="xAxis", type="integer")
      */
     public $xAxis;
+
 
     /**
      * @var int
@@ -35,12 +34,21 @@ class Brick
      */
     public $yAxis;
 
+
     /**
      * @var int
      *
      * @ORM\Column(name="hp", type="integer")
      */
     public $hp;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="power", type="text")
+     */
+    public $power;
 
 
     /**
@@ -53,6 +61,7 @@ class Brick
         return $this->id;
     }
 
+
     /**
      * Set xAxis
      *
@@ -63,7 +72,6 @@ class Brick
     public function setXAxis($xAxis)
     {
         $this->xAxis = $xAxis;
-
         return $this;
     }
 
@@ -77,6 +85,7 @@ class Brick
         return $this->xAxis;
     }
 
+
     /**
      * Set yAxis
      *
@@ -87,7 +96,6 @@ class Brick
     public function setYAxis($yAxis)
     {
         $this->yAxis = $yAxis;
-
         return $this;
     }
 
@@ -100,7 +108,6 @@ class Brick
     {
         return $this->yAxis;
     }
-
     
 
     /**
@@ -113,17 +120,31 @@ class Brick
     public function setHp($hp)
     {
         $this->hp = $hp;
+        return $this->hp;
+    }
+
+
+    /**
+     * Set power
+     *
+     * @param text $power
+     *
+     * @return Brick
+     */
+    public function setPower($power)
+    {
+        $this->power = $power;
 
         return $this;
     }
 
     /**
-     * Get hp
+     * Get power
      *
-     * @return integer
+     * @return string
      */
-    public function getHp()
+    public function getPower()
     {
-        return $this->hp;
+        return $this->power;
     }
 }

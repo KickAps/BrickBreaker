@@ -1,33 +1,43 @@
 function Ball(){
 
+	//ball location/dimensions
 	this.x = width/2
 	this.y = height /2
 	this.diameter = 20
+
 	this.xspeed = 0
-	this.yspeed = 5
+	this.yspeed = 0
 	this.canMove = false
+
+	//Powers features
+	this.supertouch = 0 // normal is 0
+	this.slowtouch = -1 // normal is -1
+
+
+	//Ball movement initialization 
+	//Speeds are defined, but the ball can't move...
+	this.init = function(){
+
+		this.x = width/2
+		this.y = height /2
+		this.xspeed = floor(random(-5, 5))
+		this.yspeed = 5
+		this.canMove = false
+	}
+
+	//...Ball moving authorization
+	this.move = function(){
+
+		if(keyIsDown(32)){ // SPACE
+			this.canMove = true
+		}
+	}
 
 	//Show the ball
 	this.show = function(){
 
 		fill(0, 255, 0) //GREEN
 		ellipse(this.x, this.y, this.diameter, this.diameter)
-	}
-
-	//Ball initialization 
-	this.init = function(){
-		this.x = width/2
-		this.y = height /2
-		this.xspeed = floor(random(-5, 5))
-		this.yspeed = 3
-		this.canMove = false
-	}
-
-	//Ball moving right
-	this.move = function(){
-		if(keyIsDown(32)){ // SPACE
-			this.canMove = true
-		}
 	}
 
 	//Update the ball position 
@@ -57,11 +67,16 @@ function Ball(){
 
 		if(this.y>height - 50){
 
-			// life management
-			if(this.x < width/2)
+			//Players life management
+			if(this.x < width/2){
 				player1.life --
-			else if(this.x > width/2)
+			}
+			else if(this.x > width/2){
 				player2.life --
+			}
+
+			player1.combo = 0
+			player2.combo = 0
 
 			this.init()
 		}
@@ -77,6 +92,7 @@ function Ball(){
 				this.yspeed *= -1
 				currentPlayer.iHaveBall = true
 				previousPlayer.iHaveBall = false
+				previousPlayer.combo = 0
 
 				switch (true) {
 
@@ -143,20 +159,30 @@ function Ball(){
 
 			//BOTTOM / TOP
 			if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w)
+
 				if(this.y >= brick[i].y - margin && this.y <= brick[i].y + brick[i].h + margin){
 
 					this.yspeed *= -1
-					brick[i].hp --
-					player.score += 10
+
+					brick[i].seekPower(this)
+
+					if(brick[i].hp > -1){
+						superball(player, this, brick[i])
+					}
 				}
 
 			//LEFT / RIGHT
 			if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h)
+
 				if(this.x >= brick[i].x - margin && this.x <= brick[i].x + brick[i].w + margin){
 
 					this.xspeed *= -1
-					brick[i].hp --
-					player.score += 10
+
+					brick[i].seekPower(this)
+
+					if(brick[i].hp > -1){
+						superball(player, this, brick[i])
+					}
 				}
 
 			brick[i].update(i)

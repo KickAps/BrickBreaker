@@ -11,31 +11,31 @@ class LoadBrick extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        //for ($i = 0; $i < 2; $i++) {
+        // for ($i = 0; $i < 2; $i++) {
 
-          //  for ($j = 0; $j < 1; $j++) {
-          //      $brick = new Brick();
-          //      $brick->setXaxis(10+$j*100);
-          //      $brick->setYaxis(10+$i*30);
-          //      $brick->setHp(1);
+        //    for ($j = 0; $j < 1; $j++) {
+        //        $brick = new Brick();
+        //        $brick->setXaxis(10+$j*100);
+        //        $brick->setYaxis(10+$i*30);
+        //        $brick->setHp(1);
 
-          //      $manager->persist($brick);
-          //  }
-        //}
+        //        $manager->persist($brick);
+        //    }
+        // }
         
 
         // scheme 1, bricks spaced out
-        /*for ($i = 0; $i < 8; $i++) {
+        // for ($i = 0; $i < 8; $i++) {
 
-            for ($j = 0; $j < 10; $j++) {
-                $brick = new Brick();
-                $brick->setXaxis(20+$j*100);
-                $brick->setYaxis(20+$i*30);
-                $brick->setHp(1);
+        //     for ($j = 0; $j < 10; $j++) {
+        //         $brick = new Brick();
+        //         $brick->setXaxis(20+$j*100);
+        //         $brick->setYaxis(20+$i*30);
+        //         $brick->setHp(1);
 
-                $manager->persist($brick);
-            }
-        }*/
+        //         $manager->persist($brick);
+        //     }
+        // }
 
 
         // scheme 2, bricks sticked
@@ -45,7 +45,23 @@ class LoadBrick extends Fixture
                 $brick = new Brick();
                 $brick->setXaxis(20+$j*80);
                 $brick->setYaxis(50+$i*25);
-                $brick->setHp(1);
+
+                //tests power
+                if($i == 6 && $j == 4){
+                  $brick->setPower('slowball');
+                }
+                else if($i == 6 && $j == 7){
+                  $brick->setPower('superball');
+                }
+                else
+                $brick->setPower('');
+
+                //test undestructible brick
+                if($i == 6 && $j == 0){
+                  $brick->setHp(-1);
+                }
+                else
+                  $brick->setHp(4);
 
                 $manager->persist($brick);
             }
