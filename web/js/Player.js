@@ -7,7 +7,7 @@ function Player(playerNumber){
 	//cursor location & speed
 	this.x
 	this.y = height-this.h-60
-	this.xspeed = 5
+	this.xspeed = 7
 
 	//Player caracteristics
 	this.name = ''
@@ -15,6 +15,7 @@ function Player(playerNumber){
 	this.life = 5
 	this.combo = 0
 	this.iHaveBall = false
+	this.canMove = false
 
 	//distinction player 1 & 2
 	if(playerNumber == 1){
@@ -39,28 +40,31 @@ function Player(playerNumber){
 	//Update cursor location
 	this.update = function(playerNumber){
 
-		if(playerNumber == 1){
+		if(this.canMove == true){
+
+			if(playerNumber == 1){
 			
-			if (keyIsDown(81)){// Q
-				this.x -= this.xspeed
-			}
-			if (keyIsDown(68)){// D
-				this.x += this.xspeed
+				if (keyIsDown(81)){// Q
+					this.x -= this.xspeed
+				}
+				if (keyIsDown(68)){// D
+					this.x += this.xspeed
+				}
+
+				this.x = constrain(this.x, 0, width/2 - this.w - 1)
 			}
 
-			this.x = constrain(this.x, 0, width/2 - this.w - 1)
-		}
-
-		if(playerNumber == 2){
+			if(playerNumber == 2){
 			
-			if (keyIsDown(LEFT_ARROW)){// <
-				this.x -= this.xspeed
-			}
-			if (keyIsDown(RIGHT_ARROW)){// >
-				this.x += this.xspeed
-			}
+				if (keyIsDown(LEFT_ARROW)){// <
+					this.x -= this.xspeed
+				}
+				if (keyIsDown(RIGHT_ARROW)){// >
+					this.x += this.xspeed
+				}
 
-			this.x = constrain(this.x, width/2 + 1, width-this.w - 1)
+				this.x = constrain(this.x, width/2 + 1, width-this.w - 1)
+			}
 		}
 	}
 

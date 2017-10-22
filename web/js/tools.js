@@ -33,6 +33,27 @@ function win(){
 }
 
 
+//Ball & players moving authorization
+unfreezeGame = function(ball, player1, player2){
+
+  if(keyIsDown(32)){ // SPACE
+    ball.canMove = true
+    player1.canMove = true
+    player2.canMove = true
+  }
+}
+
+//unable ball & players to move + reset combos
+freezeGame = function(ball, player1, player2){
+
+      player1.combo = 0
+      player2.combo = 0
+      player1.canMove = false
+      player2.canMove = false
+      ball.canMove = false
+}
+
+
 /************ POWERS *************/
 
 

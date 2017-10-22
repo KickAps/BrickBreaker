@@ -27,13 +27,7 @@ function Ball(){
 		this.slowtouch = -1
 	}
 
-	//...Ball moving authorization
-	this.move = function(){
-
-		if(keyIsDown(32)){ // SPACE
-			this.canMove = true
-		}
-	}
+	
 
 	//Show the ball
 	this.show = function(){
@@ -45,7 +39,7 @@ function Ball(){
 	//Update the ball position 
 	this.update = function(){
 
-		this.move()
+		unfreezeGame(this, player1, player2)
 
 		if(this.canMove == true){
 			this.x += this.xspeed
@@ -61,12 +55,14 @@ function Ball(){
 	//Edges collisions 
 	this.edgeBounce = function(){
 
+		// Bounce on canvas Edges
 		if(this.x<margin || this.x>width-margin)
 			this.xspeed *= -1
 
 		if(this.y<margin)
 			this.yspeed *= -1
 
+		//Under player cursors (bottom adge), out of the game
 		if(this.y>height - 50){
 
 			//Players life management
@@ -77,8 +73,7 @@ function Ball(){
 				player2.life --
 			}
 
-			player1.combo = 0
-			player2.combo = 0
+			freezeGame(this, player1, player2)
 
 			this.init()
 		}
