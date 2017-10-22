@@ -23,6 +23,8 @@ function Ball(){
 		this.xspeed = floor(random(-5, 5))
 		this.yspeed = 5
 		this.canMove = false
+		this.supertouch = 0
+		this.slowtouch = -1
 	}
 
 	//...Ball moving authorization
