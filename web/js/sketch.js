@@ -25,7 +25,7 @@ var margin = 10
 //For the heart(life points) icon
 var heart_ico
 
-
+var idDest = -1
 
 function setup() {
 
@@ -51,6 +51,11 @@ function setup() {
 
     if(brick[i].hp == -1){
       undestructibleBricks++
+    }
+
+    //seek for the 2 teleport bricks, if they exist. Always in pair.
+    if(brick[i].power == 'teleport'){
+       idDest = teleportDestination(i, idDest)
     }
   }
 

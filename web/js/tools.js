@@ -94,7 +94,8 @@ function superball(player, ball, brick){
 }
 
 
-
+//Create a 2nd (or n-th) ball
+//Directly allowed to move
 function cloneball(ballTab){
 
   ballTab.push(new Ball() )
@@ -105,6 +106,75 @@ function cloneball(ballTab){
 }
 
 
-function teleport(startBrick, endBrick, ball){
+function teleport(startBrick, ball, bottomOrTop){
 
+  var delta = 0
+  // alert("hey start teleport\nball.x = " + ball.x + "\nball.y = " + ball.y
+  //                         + "\nstart.x = " + startBrick.x + "\nstart.y = " + startBrick.y
+  //                         + "\ndest.x = " + startBrick.teleportDestX + "\n dest.y = " + startBrick.teleportDestY
+  //                         )
+
+  if(bottomOrTop == true){
+
+    //Reset ySpeed
+    ball.yspeed *= -1   
+
+
+    // x is at the opposit position on the opposit side of the destination brick
+    delta = ball.x - startBrick.x
+    ball.x = startBrick.teleportDestX + startBrick.w - delta
+    //alert("delta = " + delta + "\ndestX = " + startBrick.teleportDestX + "\nw = " + startBrick.w)
+
+    if(ball.y < startBrick.y){
+    // if TOP go to BOTTOM edge
+      ball.y = startBrick.teleportDestY + startBrick.h + margin
+    }
+    else{
+    // if BOTTOM go to TOP edge
+      ball.y = startBrick.teleportDestY - margin
+    }
+  }
+  // RIGHT or LEFT
+  else {
+
+    //Reste xSpeed
+    ball.xspeed *= -1
+
+
+    // y is at the opposit position on the opposit side of the destination brick
+    delta = ball.y - startBrick.y
+    ball.y = startBrick.teleportDestY + startBrick.h - delta
+
+
+    if(ball.x < startBrick.x){
+    // if LEFT go to RIGHT edge
+      ball.x = startBrick.teleportDestX + startBrick.w + margin
+    }
+    else{
+    // if RIGHT go to LEFT edge
+      ball.x = startBrick.teleportDestX - margin
+    }
+  }
+}
+
+//seek for the 2 teleport bricks, if they exist. Always in pair.
+function teleportDestination(i, idDest){
+
+  //if brick[i] is the first teleport birck founded...
+  if(idDest == -1){
+    idDest = i
+    return idDest;
+  }
+  //... else we can set the destBrick in the 2 teleport bricks
+  else{
+    
+    brick[i].teleportDestX = brick[idDest].x
+    brick[i].teleportDestY = brick[idDest].y
+
+
+    brick[idDest].teleportDestX = brick[i].x
+    brick[idDest].teleportDestY = brick[i].y
+    //alert(brick[i].teleportDestX)
+    return -1;
+  }
 }

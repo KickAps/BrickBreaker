@@ -10,6 +10,24 @@ function Brick(bricks){
 
 	this.hp = bricks.hp
 	this.power = bricks.power
+
+	this.teleportDestX = -1
+	this.teleportDestY = -1
+
+
+	//Debuging help
+	this.displayParam = function(){
+		alert("Brick :"
+				+ "\nx = " + this.x
+				+ "\ny = " + this.y
+				+ "\nwidth = " + this.w
+				+ "\nheight = " + this.h
+				+ "\nhp = " + this.hp
+				+ "\npower = " + this.power
+				+ "\nDest X = " + this.teleportDestX
+				+ "\nDest Y = " + this.teleportDestY
+			)
+	}	
 		
 	//Show the brick
 	//RGB colors : http://www.rapidtables.com/web/color/RGB_Color.htm
@@ -64,7 +82,7 @@ function Brick(bricks){
 	}
 
 
-	this.seekPower = function(ball){
+	this.seekPower = function(ball, bottomOrTop){
 
 		switch (true) {
 
@@ -81,16 +99,18 @@ function Brick(bricks){
 	            cloneball(ballTab)
 	            break
 
-	        case (this.power == 'teleport'): //teleport
-	            teleport()
-	            break
-
 	        default:
 	        	break
 	                    
-	     }
+	    }
 
-	    this.power = ''
+	    if(this.power == 'teleport'){
+
+	    	teleport(this, ball, bottomOrTop)
+	    }
+	    else{	
+	    	this.power = ''
+	    }
 	}
 
 }

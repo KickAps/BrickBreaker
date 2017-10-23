@@ -13,6 +13,19 @@ function Ball(){
 	this.supertouch = 0 // normal is 0
 	this.slowtouch = -1 // normal is -1
 
+	//Debuging help
+	this.displayParam = function(){
+		alert("Ball :"
+				+ "\nx = " + this.x
+				+ "\ny = " + this.y
+				+ "\ndiameter = " + this.diameter
+				+ "\nxspeed = " + this.xspeed
+				+ "\nyspeed = " + this.yspeed
+				+ "\ncanMove = " + this.canMove
+				+ "\nsupertouch = " + this.supertouch
+				+ "\nslowtouch = " + this.slowtouch
+			)
+	}	
 
 	//Ball movement initialization 
 	//Speeds are defined, but the ball can't move...
@@ -21,13 +34,11 @@ function Ball(){
 		this.x = width/2
 		this.y = height /2
 		this.xspeed = floor(random(-5, 5))
-		this.yspeed = 5
+		this.yspeed = 3
 		this.canMove = false
 		this.supertouch = 0
 		this.slowtouch = -1
 	}
-
-	
 
 	//Show the ball
 	this.show = function(){
@@ -56,9 +67,11 @@ function Ball(){
 	this.edgeBounce = function(i){
 
 		// Bounce on canvas Edges
+		// Bounce left & right
 		if(this.x<margin || this.x>width-margin)
 			this.xspeed *= -1
 
+		// Bounce Top
 		if(this.y<margin)
 			this.yspeed *= -1
 
@@ -172,9 +185,9 @@ function Ball(){
 
 				if(this.y >= brick[i].y - margin && this.y <= brick[i].y + brick[i].h + margin){
 
-					this.yspeed *= -1
+	    			this.yspeed *= -1
 
-					brick[i].seekPower(this)
+					brick[i].seekPower(this, true)
 
 					if(brick[i].hp > -1){
 						superball(player, this, brick[i])
@@ -187,9 +200,9 @@ function Ball(){
 
 				if(this.x >= brick[i].x - margin && this.x <= brick[i].x + brick[i].w + margin){
 
-					this.xspeed *= -1
+	    			this.xspeed *= -1
 
-					brick[i].seekPower(this)
+					brick[i].seekPower(this, false)
 
 					if(brick[i].hp > -1){
 						superball(player, this, brick[i])
@@ -200,4 +213,5 @@ function Ball(){
 			brick[i].update(i)
  		}
 	}
+
 }

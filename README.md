@@ -40,8 +40,10 @@ A Symfony project created on September 19, 2017, 12:34 pm.
 - Classic bricks (CB) could have between 0 & 4 HPs.
 - CB dissappear when reach 0 HP.
 - Each ball touch remove 1 HP to the brick.
-- Undestructible bricks (UB) have -1 hp, they never loose HPs, and the never offer points to players.
-- Special bricks (SB) gives a power to the ball (only) at the first contact between the ball and the SB.
+- Undestructible bricks (UB) have -1 hp, they never loose HPs,
+		and the never offer points to players.
+- Special bricks (SB) gives a power to the ball (only)
+		at the first contact between the ball and the SB.
 
 
 
@@ -54,7 +56,8 @@ SUPERBALL :
 
 - For the 5 next brick contacts (including the SP which gives the power).
 - 1 contact destroy the brick even if it have more than 1 lives remaining ...
-- ... then player receive 10 points per life remaining to the brick, and also 1 combo point per life.
+- ... then player receive 10 points per life remaining to the brick,
+		and also 1 combo point per life.
 
 
 SLOWBALL :
@@ -63,17 +66,20 @@ SLOWBALL :
 - Ball's ySpeed is divided per 2.
 
 
-(TODO) CLONEBALL :
+CLONEBALL :
 
 - Create a second ball.
-- (TODefine) Starting from ???
-- (TODefine) The Cloneball disappear when ??? After some contacts ? Or only when dying under player ?
-- (TODefine) Do the Cloneball removes lifes, gives as points and combo points as the main ball ?
+- Starting from the same init point than a classic ball.
+- The clonball die like a classic ball under the players cursors.
+- The cloneball gives points, and combo points,
+		and remove lifes exactly like a classic ball.
 
 
-(TODO) TELEPORT :
+TELEPORT :
 
 - 2 Teleport SB (TSB) linked.
+- !!! When adding a TSB to the scheme, we must add a second TSB :
 - When a ball touch a TSB, it's teleported to the second TSB.
-- (TODefine) Are TSB undestructible ? Or TSB allows only a limited number of teleportations ?
-- (TODefine) Points ?
+- TSB are undestructible (remind to set their hp to -1).
+- TSB allowed unlimited number of teleportations.
+- TSB do not gives points.

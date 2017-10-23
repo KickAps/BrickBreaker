@@ -17,6 +17,21 @@ function Player(playerNumber){
 	this.iHaveBall = false
 	this.canMove = false
 
+	this.displayParam = function(){
+		alert("Player : " + player.name
+				+ "\nx = " + this.x
+				+ "\ny = " + this.y
+				+ "\nwidth = " + this.w
+				+ "\nheight = " + this.h
+				+ "\nxspeed = " + this.xspeed
+				+ "\nscore = " + this.score
+				+ "\nlife = " + this.life
+				+ "\ncombo = " + this.combo
+				+ "\niHaveBall = " + this.iHaveBall
+				+ "\ncanMove = " + this.canMove
+			)
+	}	
+
 	//distinction player 1 & 2
 	if(playerNumber == 1){
 
