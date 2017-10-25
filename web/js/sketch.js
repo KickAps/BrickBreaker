@@ -59,7 +59,7 @@ function setup() {
 
     brick.push(new Brick(bricksTab[i]))
 
-    if(brick[i].hp == -1){
+    if(this.power == 'teleport' || this.power == 'undestructible'){
       undestructibleBricks++
     }
 
@@ -147,12 +147,12 @@ function draw(){
       //   ballTab[i].brickBounce(brick, player2)
       // }
 
-    if(player1.iHaveBall == true){
-      ballTab[i].brickBounce2(brick, player1, i)
-    }
-    else{
-      ballTab[i].brickBounce2(brick, player2, i)
-    }
+      if(player1.iHaveBall == true){
+        ballTab[i].brickBounce2(brick, player1, i)
+      }
+      else{
+        ballTab[i].brickBounce2(brick, player2, i)
+      }
 
       var lastBallTabLength = ballTab.length
       ballTab[i].edgeBounce(i)
@@ -163,9 +163,11 @@ function draw(){
         ballTab[i].show()
       }
     }
-  }else{
 
-  clear()
+  }
+  else{
+
+    clear()
   }
 }
 

@@ -84,7 +84,7 @@ function Ball(){
 			this.xspeed *= -1
 
 		// Bounce Top
-		if(this.y<margin) //  || this.y>height-margin
+		if(this.y<margin) // || this.y>height-margin
 			this.yspeed *= -1
 
 		//Under player cursors (bottom edge), out of the game
@@ -101,7 +101,7 @@ function Ball(){
 			//Restart the sketch with a freeze screen if this is the last ball to disappear ...
 			if(ballTab.length < 2){
 				freezeGame(this, player1, player2)
-				this.init()
+				this.init(width/2, height/2)
 			}
 			//... only destroy a ball in the tab
 			else{
@@ -184,7 +184,7 @@ function Ball(){
 
 					brick[i].seekPower(this, false, false, ballID)
 
-					if(brick[i].hp > -1){
+					if(this.power != 'teleport' && this.power != 'undestructible'){
 						superball(player, this, brick[i])
 						slowball(this)
 					}
@@ -304,6 +304,9 @@ function Ball(){
 					}
 
 				}
+
+				//Collision then break the for() loop
+				i = brick.length -1
 			}
 
 			brick[i].update(i)

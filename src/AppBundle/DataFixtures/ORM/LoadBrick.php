@@ -57,15 +57,14 @@ class LoadBrick extends Fixture
                 }else if($i == 6 && $j == 6){
                   $brick->setPower('cloneball');
                 }
+                else if($i == 6 && $j == 0)
+                    //test undestructible brick
+                    $brick->setpower('undestructible');
                 else
-                $brick->setPower('');
+                    $brick->setPower('');
 
                 //test undestructible brick
-                if($i == 6 && $j == 0){
-                  $brick->setHp(-1);
-                }
-                else
-                  $brick->setHp(4);
+                $brick->setHp(4);
 
                 $manager->persist($brick);
             }
@@ -73,7 +72,7 @@ class LoadBrick extends Fixture
 
 
         // scheme 3, teleport bricks test
-        // brick 1
+        //brick 1
         // $brick = new Brick();
         // $brick->setXaxis(20+2*80);
         // $brick->setYaxis(50+3*25);
@@ -98,9 +97,8 @@ class LoadBrick extends Fixture
         // $brick->setYaxis(20);
         // $brick->setHp(1);
         // $brick->setPower('');
-
-
         // $manager->persist($brick);
+
 
 
 

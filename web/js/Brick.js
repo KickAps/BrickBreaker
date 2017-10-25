@@ -37,14 +37,14 @@ function Brick(bricks){
 
 		if(this.power != ''){
 
-			fill(255,20,147) //DEEP PINK
+			if(this.power == 'undestructible')
+	            fill(192,192,192) //SILVER
+	        else
+	        	//other powers
+				fill(255,20,147) //DEEP PINK
 		}
 		else {
 			switch (true) {
-
-	            case (this.hp == -1):
-	                fill(192,192,192) //SILVER
-	                break
 
 	            case (this.hp == 1):
 	                fill(233,150,122) //DARK SALMON
@@ -62,11 +62,11 @@ function Brick(bricks){
 	                fill(139,0,0) //DARK RED
 	                break
 
-	            case (this.power == 'superball'):
+	            case (this.power != ''):
             	    fill(255,20,147) //DEEP PINK
-        	        break
+	                break
 
-    	        default:
+	            default:
 	                fill(255) //WHITE
 	    	}
 		}	
@@ -76,7 +76,8 @@ function Brick(bricks){
 
 	//Update the brick state 
 	this.update = function(i){
-		if(brick[i].hp == 0){
+
+		if(this.hp < 1){
 			brick.splice(i, 1)
 		}
 	}
@@ -105,7 +106,7 @@ function Brick(bricks){
 	                    
 	    }
 		
-	    if(this.power != 'teleport'){
+	    if(this.power != 'teleport' && this.power != 'undestructible'){
 	    	this.power = ''
 	    }
 	}
