@@ -92,6 +92,18 @@ class LoadBrick extends Fixture
 
 
 
+        // scheme 4 only one brick
+        // $brick = new Brick();
+        // $brick->setXaxis(20);
+        // $brick->setYaxis(20);
+        // $brick->setHp(1);
+        // $brick->setPower('');
+
+
+        // $manager->persist($brick);
+
+
+
         // for ($i = 0; $i < 2; $i++) {
 
         //     for ($j = 0; $j < 4; $j++) {

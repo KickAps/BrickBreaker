@@ -50,7 +50,7 @@ function setup() {
   player1 = new Player(1)
   player2 = new Player(2)
 
-  ballTab[0].init()
+  ballTab[0].init(width/2, height/2)
 
   //Get the bricksTab from HTML
   bricksTab = jQuery('.class-bricks').data('bricks')
@@ -148,10 +148,10 @@ function draw(){
       // }
 
     if(player1.iHaveBall == true){
-      ballTab[i].brickBounce2(brick, player1)
+      ballTab[i].brickBounce2(brick, player1, i)
     }
     else{
-      ballTab[i].brickBounce2(brick, player2)
+      ballTab[i].brickBounce2(brick, player2, i)
     }
 
       var lastBallTabLength = ballTab.length

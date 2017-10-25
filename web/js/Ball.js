@@ -35,10 +35,10 @@ function Ball(){
 
 	//Ball movement initialization 
 	//Speeds are defined, but the ball can't move...
-	this.init = function(){
+	this.init = function(initX, initY){
 
-		this.x = width/2
-		this.y = height /2
+		this.x = initX // width/2
+		this.y = initY // height/2
 
 		while (this.xspeed == 0){
 			this.xspeed = floor(random(-5, 5))
@@ -84,7 +84,7 @@ function Ball(){
 			this.xspeed *= -1
 
 		// Bounce Top
-		if(this.y<margin)
+		if(this.y<margin) //  || this.y>height-margin
 			this.yspeed *= -1
 
 		//Under player cursors (bottom edge), out of the game
@@ -156,41 +156,9 @@ function Ball(){
 	}
 
 	//Bricks collisions ( in development ) 
-	this.brickBounce = function(brick, player){
+	this.brickBounce = function(brick, player, ballID){
 
 		for (var i = 0; i < brick.length; i++) {
-
-			// //BOTTOM
-			// if(this.y <= brick[i].y + margin && this.y >= brick[i].y -5)
-			// 	if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w){
-
-			// 		this.yspeed *= -1
-			// 		brick[i].hp --
-			// 	}
-
-			// //TOP
-			// if(this.y <= brick[i].y + brick[i].h + margin && this.y >= brick[i].y + brick[i].h -5)
-			// 	if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w){
-
-			// 		this.yspeed *= -1
-			// 		brick[i].hp --
-			// 	}
-
-			// //LEFT
-			// if(this.x <= brick[i].x + margin && this.x >= brick[i].x -5)
-			// 	if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h){
-
-			// 		this.xspeed *= -1
-			// 		brick[i].hp --
-			// 	}
-
-			// //RIGHT
-			// if(this.x <= brick[i].x + brick[i].w + margin && this.x >= brick[i].x + brick[i].w - 5)
-			// 	if(this.y >= brick[i].y && this.y <= brick[i].y + brick[i].h){
-
-			// 		this.xspeed *= -1
-			// 		brick[i].hp --
-			// 	}
 
 			//BOTTOM / TOP
 			if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w)
@@ -199,7 +167,7 @@ function Ball(){
 
 	    			this.yspeed *= -1
 
-					brick[i].seekPower(this, true)
+					brick[i].seekPower(this, true, false, ballID)
 
 					if(brick[i].hp > -1){
 						superball(player, this, brick[i])
@@ -214,7 +182,7 @@ function Ball(){
 
 	    			this.xspeed *= -1
 
-					brick[i].seekPower(this, false)
+					brick[i].seekPower(this, false, false, ballID)
 
 					if(brick[i].hp > -1){
 						superball(player, this, brick[i])
@@ -226,8 +194,9 @@ function Ball(){
  		}
 	}
 
+	// Method 
 	// use this web page : https://yal.cc/rectangle-circle-intersection-test/
-	this.brickBounce2 = function(brick, player){
+	this.brickBounce2 = function(brick, player, ballID){
 
 		var nearestX
 		var nearestY
@@ -260,7 +229,7 @@ function Ball(){
 					this.yspeed *= -1
 
 					//or Teleport brick : 	BOTTOM or TOP ? true.		CORNER ? false.
-					brick[i].seekPower(this, true, false)
+					brick[i].seekPower(this, true, false, ballID)
 
 					if(brick[i].hp > -1){
 
@@ -280,7 +249,7 @@ function Ball(){
 					this.xspeed *= -1
 
 					//or Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? false.
-					brick[i].seekPower(this, false, false)
+					brick[i].seekPower(this, false, false, ballID)
 
 					if(brick[i].hp > -1){
 
@@ -322,7 +291,7 @@ function Ball(){
 
 
 					//for Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? true.
-					brick[i].seekPower(this, false, true)
+					brick[i].seekPower(this, false, true, ballID)
 
 					if(brick[i].hp > -1){
 

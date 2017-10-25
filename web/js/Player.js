@@ -12,11 +12,12 @@ function Player(playerNumber){
 	//Player caracteristics
 	this.name = ''
 	this.score = 0
-	this.life = 1
+	this.life = 5
 	this.combo = 0
 	this.iHaveBall = false
 	this.canMove = false
 
+	//Debuging help
 	this.displayParam = function(){
 		alert("Player : " + player.name
 				+ "\nx = " + this.x
@@ -86,8 +87,8 @@ function Player(playerNumber){
 	//Before the game
 	//if no names chosen, set player1.name = 'Player1' & player2.name = 'Player2'
 	this.choosePlayerName = function(player){
-		
-  		this.name = player;
+  
+  		this.name = player
 	}
 
 }

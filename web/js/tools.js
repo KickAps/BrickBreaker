@@ -136,12 +136,12 @@ function superball(player, ball, brick){
 
 //Create a 2nd (or n-th) ball
 //Directly allowed to move
-function cloneball(ballTab){
+function cloneball(ballTab, previousBallID){
 
   ballTab.push(new Ball() )
 
   var i = ballTab.length -1
-  ballTab[i].init()
+  ballTab[i].init(ballTab[previousBallID].x, ballTab[previousBallID].y)
   ballTab[i].canMove = true
 }
 

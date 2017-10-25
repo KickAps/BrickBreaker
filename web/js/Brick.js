@@ -82,7 +82,7 @@ function Brick(bricks){
 	}
 
 
-	this.seekPower = function(ball, bottomOrTop, corner){
+	this.seekPower = function(ball, bottomOrTop, corner, ballID){
 
 
 		switch (true) {
@@ -97,7 +97,7 @@ function Brick(bricks){
 	            break
 
 	        case (this.power == 'cloneball'): //cloneball
-	            cloneball(ballTab)
+	            cloneball(ballTab, ballID)
 	            break
 
 	        default:
