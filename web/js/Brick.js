@@ -104,14 +104,8 @@ function Brick(bricks){
 	        	break
 	                    
 	    }
-
-	    if(this.power == 'teleport'){
-
-	    	if(corner == false){
-	    		teleport(this, ball, bottomOrTop)
-	    	}
-	    }
-	    else{	
+		
+	    if(this.power != 'teleport'){
 	    	this.power = ''
 	    }
 	}

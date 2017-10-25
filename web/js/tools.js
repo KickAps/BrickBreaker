@@ -50,7 +50,7 @@ function win(){
   }
 
   // if no bricks anymore
-  if(brick.length - undestructibleBricks == 0){
+  if(brick.length - undestructibleBricks  == 0){ //
 
     if(player1.score > player2.score){
       isTheWinner(player1)
@@ -147,107 +147,36 @@ function cloneball(ballTab, previousBallID){
 
 
 //Teleport the ball fram the startBrick to its destination brick
-//No bounce
+//No bounce on TOP & BOTTOM
+//No teleport on RIGHT & LEFT
 //Undestructible bricks
-function teleport(startBrick, ball, bottomOrTop){
+function teleport(startBrick, ball){
 
-  var delta = 0
+  
+  //alert("in teleport2")
+  if(startBrick.power == 'teleport'){
 
-  // if(corner == true){
-
-  //   teleportCorner(startBrick, ball)
-  // }
-  // else
-    if(bottomOrTop == true){
-
-    //BOTTOM or TOP
-    
-    //Reset ySpeed
-    ball.yspeed *= -1   
-
-
-    // x is at the opposit position on the opposit side of the destination brick
-    delta = ball.x - startBrick.x
-    ball.x = startBrick.teleportDestX + startBrick.w - delta
-    //alert("delta = " + delta + "\ndestX = " + startBrick.teleportDestX + "\nw = " + startBrick.w)
-
+    //alert("power")
     if(ball.y < startBrick.y){
-    // if TOP go to BOTTOM edge
+
+      //alert("in top")
+      //starting brick TOP to destination brick BOTTOM
+      ball.x = startBrick.teleportDestX + startBrick.w/2
       ball.y = startBrick.teleportDestY + startBrick.h + ball.diameter/2 +1
     }
     else{
-    // if BOTTOM go to TOP edge
+
+      //alert("in bottom")
+      //starting brick BOTTOM to destination brick TOP
+      ball.x = startBrick.teleportDestX + startBrick.w/2
       ball.y = startBrick.teleportDestY - ball.diameter/2 -1
     }
-  }
-  else {
 
-    // RIGHT or LEFT
-    
-    //Reste xSpeed
-    ball.xspeed *= -1
+    //reset speed
+    ball.yspeed *= -1
 
-
-    // y is at the opposit position on the opposit side of the destination brick
-    delta = ball.y - startBrick.y
-    ball.y = startBrick.teleportDestY + startBrick.h - delta
-
-
-    if(ball.x < startBrick.x){
-    // if LEFT go to RIGHT edge
-      ball.x = startBrick.teleportDestX + startBrick.w + ball.diameter/2 +1
-    }
-    else{
-    // if RIGHT go to LEFT edge
-      ball.x = startBrick.teleportDestX - ball.diameter/2 -1
-    }
   }
 }
-
-
-//Specific : if the ball touch a corner of a teleportation brick
-// function teleportCorner(startBrick, ball){
-
-//   ball.xspeed *= -1
-//   ball.yspeed *= -1
-
-//   if(ball.y + ball.diameter/2 >= startBrick.y){
-
-//     //TOP
-
-//     if(ball.x + ball.diameter/2 >= startBrick.x){
-
-//       //TOP & LEFT
-//       ball.x = startBrick.teleportDestX + ball.diameter/2
-//       ball.y = startBrick.teleportDestY + ball.diameter/2
-//     }
-//     else{
-
-//       //TOP & RIGHT
-//       ball.x = startBrick.teleportDestX
-//       ball.y = startBrick.teleportDestY
-//     }
-
-//   }
-//   else{
-
-//     //BOTTOM
-
-//     if(ball.x + ball.diameter/2 >= startBrick.x){
-
-//       //BOTTOM & LEFT
-//       ball.x = startBrick.teleportDestX
-//       ball.y = startBrick.teleportDestY
-//     }
-//     else{
-
-//       //BOTTOM & RIGHT
-//       ball.x = startBrick.teleportDestX
-//       ball.y = startBrick.teleportDestY
-//     }
-//   }
-
-// }
 
 
 

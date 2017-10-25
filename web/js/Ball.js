@@ -231,6 +231,8 @@ function Ball(){
 					//or Teleport brick : 	BOTTOM or TOP ? true.		CORNER ? false.
 					brick[i].seekPower(this, true, false, ballID)
 
+					teleport(brick[i], this)
+
 					if(brick[i].hp > -1){
 
 						//Check if there are remaining supertouchs, else it's a classic touch
