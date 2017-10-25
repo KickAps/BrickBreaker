@@ -12,7 +12,7 @@ function Player(playerNumber){
 	//Player caracteristics
 	this.name = ''
 	this.score = 0
-	this.life = 5
+	this.life = 1
 	this.combo = 0
 	this.iHaveBall = false
 	this.canMove = false
@@ -86,18 +86,8 @@ function Player(playerNumber){
 	//Before the game
 	//if no names chosen, set player1.name = 'Player1' & player2.name = 'Player2'
 	this.choosePlayerName = function(player){
-  
-  		this.name = null
-
-  		while(this.name == null){
-
-    		this.name = prompt('Enter Pseudo ' + player, player);
-
-    		if(this.name == null || this.name == ''){
-    		  this.name = null
-    		  continue;
-    		}
-  		}
+		
+  		this.name = player;
 	}
 
 }

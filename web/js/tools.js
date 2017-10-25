@@ -3,32 +3,71 @@
 /************ GAMEPLAY *************/
 
 
+function isTheWinner(player){
+
+  restart()
+
+  textAlign(CENTER);
+  fill('WHITE')
+
+  title = text(player.name + ' WINS !', width/2, height/2 - 120)
+
+  title = text("PRESS ENTER\nTO EXIT", width/2, height/2 - 50)
+  // var playerName = createElement('h2', player.name)
+  // var playerScore = createElement('h2', player.score)
+
+  //window.location.href = '/'
+  
+
+  //a = jQuery(document).find('h2');
+
+  jQuery(document).ready(function() {
+
+      var z = document.getElementById('menu');
+      
+      z.innerHTML = "<li><a>"+player.name+" : "+player.score+"</a></li>";
+
+  });
+  
+
+  
+  // for (i=0; i<a.length; i++){
+  //     alert(a[i])
+  // }
+  
+}
+
+
 //Watch if someone wins
 function win(){
 
   // if no life anymore
   if(player2.life <= 0){
-    alert(player1.name + ' IS THE WINNER !!!');
-    restart()
+    isTheWinner(player1)
   }
   else if(player1.life <= 0){
-    alert(player2.name + ' IS THE WINNER !!!');
-    restart()
+    isTheWinner(player2)
   }
 
   // if no bricks anymore
   if(brick.length - undestructibleBricks == 0){
 
     if(player1.score > player2.score){
-      alert(player1.name + ' IS THE WINNER !!!');
+      isTheWinner(player1)
     }
     else if(player1.score < player2.score){
-      alert(player2.name + ' IS THE WINNER !!!');
+      isTheWinner(player2)
     }
     else
-      alert('!!! DRAW !!!');
+      alert('!!! DRAW !!!')
+  }
 
-    restart()
+  if(keyIsDown(13)){ // ENTER
+    
+   started = false
+    noCanvas()
+  
+    setup()
   }
 }
 

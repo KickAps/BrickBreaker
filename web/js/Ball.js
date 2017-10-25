@@ -33,7 +33,11 @@ function Ball(){
 
 		this.x = width/2
 		this.y = height /2
-		this.xspeed = floor(random(-5, 5))
+
+		while (this.xspeed == 0){
+			this.xspeed = floor(random(-5, 5))
+		}
+		
 		this.yspeed = 3
 		this.canMove = false
 		this.supertouch = 0
