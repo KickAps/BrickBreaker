@@ -13,12 +13,18 @@ function Ball(){
 	this.supertouch = 0 // normal is 0
 	this.slowtouch = -1 // normal is -1
 
+	//Last position
+	this.lastx = this.x
+	this.lasty = this.y
+
 	//Debuging help
 	this.displayParam = function(){
 		alert("Ball :"
 				+ "\nx = " + this.x
 				+ "\ny = " + this.y
 				+ "\ndiameter = " + this.diameter
+				+ "\nlast x = " + this.lastx
+				+ "\nlast y = " + this.lasty
 				+ "\nxspeed = " + this.xspeed
 				+ "\nyspeed = " + this.yspeed
 				+ "\ncanMove = " + this.canMove
@@ -57,6 +63,8 @@ function Ball(){
 		unfreezeGame(this, player1, player2)
 
 		if(this.canMove == true){
+			this.lastx = this.x
+			this.lasty = this.y
 			this.x += this.xspeed
 			this.y += this.yspeed
 		}
@@ -216,6 +224,119 @@ function Ball(){
 
 			brick[i].update(i)
  		}
+	}
+
+	// use this web page : https://yal.cc/rectangle-circle-intersection-test/
+	this.brickBounce2 = function(brick, player){
+
+		var nearestX
+		var nearestY
+		var deltaX
+		var deltaY
+
+
+		for (var i = 0; i < brick.length; i++) {
+
+			//Seek the nearest point on the brick to the ball
+			nearestX = max(brick[i].x, min(this.x, brick[i].x + brick[i].w) )
+			nearestY = max(brick[i].y, min(this.y, brick[i].y + brick[i].h) )
+
+			//Seek delta distance between the center of the ball and the nearest point
+			deltaX = this.x - nearestX
+			deltaY = this.y - nearestY
+
+			//If delta <= ball radius, their is a collision at the nearest point or more
+			//   (deltaX^2 + deltaY^2) <= radius^2
+			if( pow(deltaX, 2) + pow(deltaY, 2) <= pow(this.diameter/2, 2) ){
+
+				//Collision !!!
+
+				if( (nearestY == brick[i].y || nearestY == brick[i].y + brick[i].h)
+						&& nearestX > brick[i].x && nearestX < brick[i].x + brick[i].w){
+
+					//BOTTOM or TOP
+
+					//reverse yspeed for bounce
+					this.yspeed *= -1
+
+					//or Teleport brick : 	BOTTOM or TOP ? true.		CORNER ? false.
+					brick[i].seekPower(this, true, false)
+
+					if(brick[i].hp > -1){
+
+						//Check if there are remaining supertouchs, else it's a classic touch
+						superball(player, this, brick[i])
+						//Check if there are remaining slowtouchs, else speed*2
+						slowball(this)
+					}
+
+				}
+				else if( (nearestX == brick[i].x || nearestX == brick[i].x + brick[i].w)
+						&& nearestY > brick[i].y && nearestY < brick[i].y + brick[i].h){
+
+					//RIGHT or LEFT
+
+					//reverse xspeed for bounce
+					this.xspeed *= -1
+
+					//or Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? false.
+					brick[i].seekPower(this, false, false)
+
+					if(brick[i].hp > -1){
+
+						//Check if there are remaining supertouchs, else it's a classic touch
+						superball(player, this, brick[i])
+						//Check if there are remaining slowtouchs, else speed*2
+						slowball(this)
+					}
+				}
+				else{
+
+					//CORNER
+
+					switch(true){
+						case(this.lastx > brick[i].x
+								&& this.lastx < brick[i].x + brick[i].w):
+
+							//TOP & BOTTOM
+							this.yspeed *= -1
+
+							break
+
+						case(this.lasty > brick[i].y
+								&& this.lasty < brick[i].y + brick[i].h):
+
+							//RIGHT & LEFT
+							this.xspeed *= -1
+
+							break
+
+						default:
+
+							//was in CORNER area
+							this.xspeed *= -1
+							this.yspeed *= -1
+
+							break
+					}
+
+
+					//for Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? true.
+					brick[i].seekPower(this, false, true)
+
+					if(brick[i].hp > -1){
+
+						//Check if there are remaining supertouchs, else it's a classic touch
+						superball(player, this, brick[i])
+						//Check if there are remaining slowtouchs, else speed*2
+						slowball(this)
+					}
+
+				}
+			}
+
+			brick[i].update(i)
+		}
 	}
 
 }

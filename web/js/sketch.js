@@ -140,12 +140,19 @@ function draw(){
       ballTab[i].playerBounce(player1, player2)
       ballTab[i].playerBounce(player2, player1)
 
-      if(player1.iHaveBall == true){
-        ballTab[i].brickBounce(brick, player1)
-      }
-      else{
-        ballTab[i].brickBounce(brick, player2)
-      }
+      // if(player1.iHaveBall == true){
+      //   ballTab[i].brickBounce(brick, player1)
+      // }
+      // else{
+      //   ballTab[i].brickBounce(brick, player2)
+      // }
+
+    if(player1.iHaveBall == true){
+      ballTab[i].brickBounce2(brick, player1)
+    }
+    else{
+      ballTab[i].brickBounce2(brick, player2)
+    }
 
       var lastBallTabLength = ballTab.length
       ballTab[i].edgeBounce(i)
