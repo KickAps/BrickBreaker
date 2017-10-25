@@ -82,7 +82,8 @@ function Brick(bricks){
 	}
 
 
-	this.seekPower = function(ball, bottomOrTop){
+	this.seekPower = function(ball, bottomOrTop, corner){
+
 
 		switch (true) {
 
@@ -106,7 +107,9 @@ function Brick(bricks){
 
 	    if(this.power == 'teleport'){
 
-	    	teleport(this, ball, bottomOrTop)
+	    	if(corner == false){
+	    		teleport(this, ball, bottomOrTop)
+	    	}
 	    }
 	    else{	
 	    	this.power = ''

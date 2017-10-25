@@ -54,6 +54,7 @@ freezeGame = function(ball, player1, player2){
 }
 
 
+
 /************ POWERS *************/
 
 
@@ -106,16 +107,22 @@ function cloneball(ballTab){
 }
 
 
+//Teleport the ball fram the startBrick to its destination brick
+//No bounce
+//Undestructible bricks
 function teleport(startBrick, ball, bottomOrTop){
 
   var delta = 0
-  // alert("hey start teleport\nball.x = " + ball.x + "\nball.y = " + ball.y
-  //                         + "\nstart.x = " + startBrick.x + "\nstart.y = " + startBrick.y
-  //                         + "\ndest.x = " + startBrick.teleportDestX + "\n dest.y = " + startBrick.teleportDestY
-  //                         )
 
-  if(bottomOrTop == true){
+  // if(corner == true){
 
+  //   teleportCorner(startBrick, ball)
+  // }
+  // else
+    if(bottomOrTop == true){
+
+    //BOTTOM or TOP
+    
     //Reset ySpeed
     ball.yspeed *= -1   
 
@@ -127,16 +134,17 @@ function teleport(startBrick, ball, bottomOrTop){
 
     if(ball.y < startBrick.y){
     // if TOP go to BOTTOM edge
-      ball.y = startBrick.teleportDestY + startBrick.h + margin
+      ball.y = startBrick.teleportDestY + startBrick.h + ball.diameter/2 +1
     }
     else{
     // if BOTTOM go to TOP edge
-      ball.y = startBrick.teleportDestY - margin
+      ball.y = startBrick.teleportDestY - ball.diameter/2 -1
     }
   }
-  // RIGHT or LEFT
   else {
 
+    // RIGHT or LEFT
+    
     //Reste xSpeed
     ball.xspeed *= -1
 
@@ -148,14 +156,61 @@ function teleport(startBrick, ball, bottomOrTop){
 
     if(ball.x < startBrick.x){
     // if LEFT go to RIGHT edge
-      ball.x = startBrick.teleportDestX + startBrick.w + margin
+      ball.x = startBrick.teleportDestX + startBrick.w + ball.diameter/2 +1
     }
     else{
     // if RIGHT go to LEFT edge
-      ball.x = startBrick.teleportDestX - margin
+      ball.x = startBrick.teleportDestX - ball.diameter/2 -1
     }
   }
 }
+
+
+//Specific : if the ball touch a corner of a teleportation brick
+// function teleportCorner(startBrick, ball){
+
+//   ball.xspeed *= -1
+//   ball.yspeed *= -1
+
+//   if(ball.y + ball.diameter/2 >= startBrick.y){
+
+//     //TOP
+
+//     if(ball.x + ball.diameter/2 >= startBrick.x){
+
+//       //TOP & LEFT
+//       ball.x = startBrick.teleportDestX + ball.diameter/2
+//       ball.y = startBrick.teleportDestY + ball.diameter/2
+//     }
+//     else{
+
+//       //TOP & RIGHT
+//       ball.x = startBrick.teleportDestX
+//       ball.y = startBrick.teleportDestY
+//     }
+
+//   }
+//   else{
+
+//     //BOTTOM
+
+//     if(ball.x + ball.diameter/2 >= startBrick.x){
+
+//       //BOTTOM & LEFT
+//       ball.x = startBrick.teleportDestX
+//       ball.y = startBrick.teleportDestY
+//     }
+//     else{
+
+//       //BOTTOM & RIGHT
+//       ball.x = startBrick.teleportDestX
+//       ball.y = startBrick.teleportDestY
+//     }
+//   }
+
+// }
+
+
 
 //seek for the 2 teleport bricks, if they exist. Always in pair.
 function teleportDestination(i, idDest){
