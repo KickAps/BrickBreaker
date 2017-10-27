@@ -36,7 +36,6 @@ function Brick(bricks){
 		stroke(255) //WHITE
 
 		if(this.power != ''){
-
 			if(this.power == 'undestructible')
 	            fill(192,192,192) //SILVER
 	        else
@@ -45,6 +44,10 @@ function Brick(bricks){
 		}
 		else {
 			switch (true) {
+
+	            case (this.power != ''):
+            	    fill(255,20,147) //DEEP PINK
+	                break
 
 	            case (this.hp == 1):
 	                fill(233,150,122) //DARK SALMON
@@ -60,10 +63,6 @@ function Brick(bricks){
 
 	            case (this.hp == 4):
 	                fill(139,0,0) //DARK RED
-	                break
-
-	            case (this.power != ''):
-            	    fill(255,20,147) //DEEP PINK
 	                break
 
 	            default:

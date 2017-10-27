@@ -78,6 +78,8 @@ function setup() {
 //main loop
 function draw(){
  
+  var bounce = false
+
   if(started){
 
     background(0) //BLACK
@@ -124,6 +126,7 @@ function draw(){
     for (var i = 0; i < brick.length; i++) {
 
       brick[i].show()
+      //alert(brick.length)
     }
 
     //Update and show players 
@@ -134,34 +137,79 @@ function draw(){
     player2.show('BLUE')
 
 
+
     //Players, edges and bricks collissions
     for( i=0 ; i<ballTab.length ; i++){
 
-      ballTab[i].playerBounce(player1, player2)
-      ballTab[i].playerBounce(player2, player1)
-
-      // if(player1.iHaveBall == true){
-      //   ballTab[i].brickBounce(brick, player1)
-      // }
-      // else{
-      //   ballTab[i].brickBounce(brick, player2)
-      // }
-
-      if(player1.iHaveBall == true){
-        ballTab[i].brickBounce2(brick, player1, i)
-      }
-      else{
-        ballTab[i].brickBounce2(brick, player2, i)
-      }
-
       var lastBallTabLength = ballTab.length
-      ballTab[i].edgeBounce(i)
+
+      switch (true) {
+
+            //Bounce on player 1
+            case ( ballTab[i].playerBounce(player1, player2) ):
+                break
+
+            //Bounce on player 2
+            case ( ballTab[i].playerBounce(player2, player1) ):
+                break
+
+            case ( ballTab[i].edgeBounce(i) ):
+                break
+
+            // case (player1.iHaveBall == true && player2.iHaveBall == false):
+            //     if( ballTab[i].brickBounce(brick, player1, i) )
+            //       break
+
+            // case (player2.iHaveBall == true && player1.iHaveBall == false):
+            //     if( ballTab[i].brickBounce(brick, player2, i) )
+            //       break
+
+            case (player1.iHaveBall == true && player2.iHaveBall == false):
+                if( ballTab[i].brickBounce2(brick, player1, i) )
+                  break
+
+            case (player2.iHaveBall == true && player1.iHaveBall == false):
+                if( ballTab[i].brickBounce2(brick, player2, i) )
+                  break
+
+            default:
+       }
 
       if(lastBallTabLength == ballTab.length){
         //Update and show the ball
         ballTab[i].update()
         ballTab[i].show()
       }
+
+
+
+
+      // ballTab[i].playerBounce(player1, player2)
+      // ballTab[i].playerBounce(player2, player1)
+
+
+      // // if(player1.iHaveBall == true){
+      // //   ballTab[i].brickBounce(brick, player1)
+      // // }
+      // // else{
+      // //   ballTab[i].brickBounce(brick, player2)
+      // // }
+
+      // if(player1.iHaveBall == true){
+      //   ballTab[i].brickBounce2(brick, player1, i)
+      // }
+      // else if(player2.iHaveBall == true){
+      //   ballTab[i].brickBounce2(brick, player2, i)
+      // }
+
+      // var lastBallTabLength = ballTab.length
+      // ballTab[i].edgeBounce(i)
+
+      // if(lastBallTabLength == ballTab.length){
+      //   //Update and show the ball
+      //   ballTab[i].update()
+      //   ballTab[i].show()
+      // }
     }
 
   }

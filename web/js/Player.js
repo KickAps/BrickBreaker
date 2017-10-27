@@ -8,6 +8,7 @@ function Player(playerNumber){
 	this.x
 	this.y = height-this.h-60
 	this.xspeed = 7
+	this.direction = 'noMove'
 
 	//Player caracteristics
 	this.name = ''
@@ -62,10 +63,14 @@ function Player(playerNumber){
 			
 				if (keyIsDown(81)){// Q
 					this.x -= this.xspeed
+					this.direction = 'left'
 				}
 				if (keyIsDown(68)){// D
 					this.x += this.xspeed
+					this.direction = 'right'
 				}
+				else
+					this.direction = 'noMove'
 
 				this.x = constrain(this.x, 0, width/2 - this.w - 1)
 			}
@@ -74,10 +79,14 @@ function Player(playerNumber){
 			
 				if (keyIsDown(LEFT_ARROW)){// <
 					this.x -= this.xspeed
+					this.direction = 'left'
 				}
 				if (keyIsDown(RIGHT_ARROW)){// >
 					this.x += this.xspeed
+					this.direction = 'right'
 				}
+				else
+					this.direction = 'noMove'
 
 				this.x = constrain(this.x, width/2 + 1, width-this.w - 1)
 			}
