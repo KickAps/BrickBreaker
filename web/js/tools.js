@@ -50,8 +50,8 @@ function win(){
   }
 
   // if no bricks anymore
-  //if(brick.length - undestructibleBricks  == 0){ //
-  if(false){
+  if(brick.length - undestructibleBricks  == 0){ //
+  //if(false){
 
     if(player1.score > player2.score){
       isTheWinner(player1)

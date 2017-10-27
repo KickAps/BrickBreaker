@@ -39,6 +39,7 @@ function Ball(){
 
 		this.x = initX // width/2
 		this.y = initY // height/2
+		this.xspeed = 0
 
 		while (this.xspeed == 0){
 			this.xspeed = floor(random(-5, 5))
@@ -78,14 +79,20 @@ function Ball(){
 	//Edges collisions 
 	this.edgeBounce = function(i){
 
+		var collision = false
+
 		// Bounce on canvas Edges
 		// Bounce left & right
-		if(this.x<margin || this.x>width-margin)
+		if(this.x<margin || this.x>width-margin){
 			this.xspeed *= -1
+			collision = true
+		}
 
 		// Bounce Top
-		if(this.y<margin) // || this.y>height-margin
+		if(this.y<margin){ // || this.y>height-margin
 			this.yspeed *= -1
+			collision = true
+		}
 
 		//Under player cursors (bottom edge), out of the game
 		if(this.y>height - 50){
@@ -100,25 +107,43 @@ function Ball(){
 
 			//Restart the sketch with a freeze screen if this is the last ball to disappear ...
 			if(ballTab.length < 2){
+
 				freezeGame(this, player1, player2)
 				this.init(width/2, height/2)
 			}
 			//... only destroy a ball in the tab
 			else{
-				//alert("hey else start")
-				ballTab.splice(i, 1)
 
-				//alert("hey else end")
+				ballTab.splice(i, 1)
 			}
+
+			collision = true
 		}
+
+		return collision;
 	}
 
 	//Players collisions 
 	this.playerBounce = function(currentPlayer, previousPlayer){ 
 
-		if(this.y >= currentPlayer.y - margin && this.y <= currentPlayer.y + currentPlayer.h/2 - margin ){
+		var nearestX
+		var nearestY
+		var deltaX
+		var deltaY
 
-			if(this.x >= currentPlayer.x - margin && this.x <= currentPlayer.x + currentPlayer.w + margin){
+		//Seek the nearest point on the brick to the ball
+		nearestX = max(currentPlayer.x, min(this.x, currentPlayer.x + currentPlayer.w) )
+		nearestY = max(currentPlayer.y, min(this.y, currentPlayer.y + currentPlayer.h) )
+
+		//Seek delta distance between the center of the ball and the nearest point
+		deltaX = this.x - nearestX
+		deltaY = this.y - nearestY
+
+		//If delta <= ball radius, their is a collision at the nearest point or more
+		//   (deltaX^2 + deltaY^2) <= radius^2
+		if( pow(deltaX, 2) + pow(deltaY, 2) < pow(this.diameter/2, 2) ){
+
+			//COLLISION !!!
 
 				this.yspeed *= -1
 				currentPlayer.iHaveBall = true
@@ -127,36 +152,117 @@ function Ball(){
 
 				switch (true) {
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w / 6):
+	                case (nearestX <= currentPlayer.x + currentPlayer.w / 6):
 	                    this.xspeed = -5
 	                    break
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w * 2/6):
+	                case (nearestX <= currentPlayer.x + currentPlayer.w * 2/6):
 	                    this.xspeed = -3
 	                    break
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w * 3/6):
+	                case (nearestX <= currentPlayer.x + currentPlayer.w * 3/6):
 	                    
 						this.xspeed = -1
 	                    break
 
-	                case (this.x <= currentPlayer.x + currentPlayer.w * 4/6):
+	                case (nearestX <= currentPlayer.x + currentPlayer.w * 4/6):
 	                    this.xspeed = 1
 	                    break
 
-                    case (this.x <= currentPlayer.x + currentPlayer.w * 5/6):
+                    case (nearestX <= currentPlayer.x + currentPlayer.w * 5/6):
 	                    this.xspeed = 3
 	                    break
 
 	                default:
 	                    this.xspeed = 5
 	            }
-			}
+
+	        //collision
+	        return true;
+			
 		}
+
+		//no collision
+		return false;
+	}
+
+	//Players collisions - new version
+	//With brickBounce2() collision detection
+	//New bounce method - with player xspeed
+	this.playerBounce2 = function(currentPlayer, previousPlayer){ 
+
+		var nearestX
+		var nearestY
+		var deltaX
+		var deltaY
+
+		//Seek the nearest point on the brick to the ball
+		nearestX = max(currentPlayer.x, min(this.x, currentPlayer.x + currentPlayer.w) )
+		nearestY = max(currentPlayer.y, min(this.y, currentPlayer.y + currentPlayer.h) )
+
+		//Seek delta distance between the center of the ball and the nearest point
+		deltaX = this.x - nearestX
+		deltaY = this.y - nearestY
+
+		//If delta <= ball radius, their is a collision at the nearest point or more
+		//   (deltaX^2 + deltaY^2) <= radius^2
+		if( pow(deltaX, 2) + pow(deltaY, 2) < pow(this.diameter/2, 2) ){
+
+			//COLLISION !!!
+
+			if(nearestY == currentPlayer.y
+					&& nearestX > currentPlayer.x
+					&& nearestX < currentPlayer.x + currentPlayer.w){
+
+				//On the TOP of the cursor, then bounce !
+				this.yspeed *= -1
+				currentPlayer.iHaveBall = true
+				previousPlayer.iHaveBall = false
+				previousPlayer.combo = 0
+
+				if(currentPlayer.direction == 'left'){
+
+					if(this.xspeed <= 0){
+
+						this.xspeed -= currentPlayer.xspeed/3
+					}
+					else {
+
+						this.xspeed += currentPlayer.xspeed/2
+					}
+				}
+				else if(currentPlayer.direction == 'right'){
+
+					if(this.xspeed >= 0){
+
+						this.xspeed += currentPlayer.xspeed/3
+					}
+					else {
+
+						this.xspeed -= currentPlayer.xspeed/2
+					}
+				}
+			}
+			else if(nearestX == currentPlayer.x || nearestX == currentPlayer.x + currentPlayer.w){
+
+				//LEFT & RIGHT side of the player cursor
+				this.xspeed *= -1
+				this.yspeed *= -1
+			}
+
+			//collision
+	        return true;
+		}
+
+		//no collision
+		return false;
+
 	}
 
 	//Bricks collisions ( in development ) 
 	this.brickBounce = function(brick, player, ballID){
+
+		var collision = false;
 
 		for (var i = 0; i < brick.length; i++) {
 
@@ -164,6 +270,8 @@ function Ball(){
 			if(this.x >= brick[i].x && this.x <= brick[i].x + brick[i].w)
 
 				if(this.y >= brick[i].y - margin && this.y <= brick[i].y + brick[i].h + margin){
+
+					//COLLISION
 
 	    			this.yspeed *= -1
 
@@ -173,6 +281,8 @@ function Ball(){
 						superball(player, this, brick[i])
 						slowball(this)
 					}
+
+					collision = true
 				}
 
 			//LEFT / RIGHT
@@ -180,21 +290,27 @@ function Ball(){
 
 				if(this.x >= brick[i].x - margin && this.x <= brick[i].x + brick[i].w + margin){
 
+					//COLLISION
+
 	    			this.xspeed *= -1
 
 					brick[i].seekPower(this, false, false, ballID)
 
-					if(this.power != 'teleport' && this.power != 'undestructible'){
+					if(brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 						superball(player, this, brick[i])
 						slowball(this)
 					}
+
+					collision = true
 				}
 
 			brick[i].update(i)
  		}
+
+ 		return collision;
 	}
 
-	// Method 
+	// Nem collision detection 
 	// use this web page : https://yal.cc/rectangle-circle-intersection-test/
 	this.brickBounce2 = function(brick, player, ballID){
 
@@ -216,7 +332,7 @@ function Ball(){
 
 			//If delta <= ball radius, their is a collision at the nearest point or more
 			//   (deltaX^2 + deltaY^2) <= radius^2
-			if( pow(deltaX, 2) + pow(deltaY, 2) <= pow(this.diameter/2, 2) ){
+			if( pow(deltaX, 2) + pow(deltaY, 2) < pow(this.diameter/2, 2) ){
 
 				//Collision !!!
 
@@ -233,7 +349,8 @@ function Ball(){
 
 					teleport(brick[i], this)
 
-					if(brick[i].hp > -1){
+					if(brick[i].hp > -1
+						&& brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 
 						//Check if there are remaining supertouchs, else it's a classic touch
 						superball(player, this, brick[i])
@@ -253,7 +370,8 @@ function Ball(){
 					//or Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? false.
 					brick[i].seekPower(this, false, false, ballID)
 
-					if(brick[i].hp > -1){
+					if(brick[i].hp > -1
+						&& brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 
 						//Check if there are remaining supertouchs, else it's a classic touch
 						superball(player, this, brick[i])
@@ -295,7 +413,8 @@ function Ball(){
 					//for Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? true.
 					brick[i].seekPower(this, false, true, ballID)
 
-					if(brick[i].hp > -1){
+					if(brick[i].hp > -1
+						&& brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 
 						//Check if there are remaining supertouchs, else it's a classic touch
 						superball(player, this, brick[i])
@@ -306,11 +425,17 @@ function Ball(){
 				}
 
 				//Collision then break the for() loop
-				i = brick.length -1
+				//i = brick.length -1
+
+				brick[i].update(i)
+				return true;
+
 			}
 
-			brick[i].update(i)
 		}
+
+		//no collision
+		return false;
 	}
 
 }
