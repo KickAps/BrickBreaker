@@ -296,7 +296,7 @@ function Ball(){
 
 					brick[i].seekPower(this, false, false, ballID)
 
-					if(this.power != 'teleport' && this.power != 'undestructible'){
+					if(brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 						superball(player, this, brick[i])
 						slowball(this)
 					}
@@ -349,7 +349,8 @@ function Ball(){
 
 					teleport(brick[i], this)
 
-					if(brick[i].hp > -1){
+					if(brick[i].hp > -1
+						&& brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 
 						//Check if there are remaining supertouchs, else it's a classic touch
 						superball(player, this, brick[i])
@@ -369,7 +370,8 @@ function Ball(){
 					//or Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? false.
 					brick[i].seekPower(this, false, false, ballID)
 
-					if(brick[i].hp > -1){
+					if(brick[i].hp > -1
+						&& brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 
 						//Check if there are remaining supertouchs, else it's a classic touch
 						superball(player, this, brick[i])
@@ -411,7 +413,8 @@ function Ball(){
 					//for Teleport brick : 	BOTTOM or TOP ? false.		CORNER ? true.
 					brick[i].seekPower(this, false, true, ballID)
 
-					if(brick[i].hp > -1){
+					if(brick[i].hp > -1
+						&& brick[i].power != 'teleport' && brick[i].power != 'undestructible'){
 
 						//Check if there are remaining supertouchs, else it's a classic touch
 						superball(player, this, brick[i])
