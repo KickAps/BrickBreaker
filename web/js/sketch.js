@@ -29,6 +29,10 @@ var idDest = -1
 
 var started = false
 
+var schema = 0
+
+var button = []
+
 function setup() {
 
   player1_input = createInput('Player1')
@@ -39,10 +43,31 @@ function setup() {
   player2_input.size(120, 40)
   player2_input.position(620, 250)
 
-  button = createButton('Play')
-  button.position(player2_input.x + player2_input.width, 250)
-  button.mousePressed(start)
+  var nbSchema = jQuery('script[src*=sketch]').attr('nbSchema')
 
+  // for(var i = 0; i < nbSchema; i++){
+  //   schema = i+1;
+  //   button[i] = createButton('Level : ' + (schema))
+  //   button[i].position(player2_input.x + player2_input.width, 250 + i*50)
+  //   button[i].mousePressed(function() { start(schema) })
+  // }  
+
+  level1 = createButton('Level : ' + 1)
+  level1.position(player2_input.x + player2_input.width, 250)
+  level1.mousePressed(function() { start(1) })
+ 
+  level2 = createButton('Level : ' + 2)
+  level2.position(player2_input.x + player2_input.width, 300)
+  level2.mousePressed(function() { start(2) }) 
+
+  level3 = createButton('Level : ' + 3)
+  level3.position(player2_input.x + player2_input.width, 350)
+  level3.mousePressed(function() { start(3) })
+
+  level4 = createButton('Level : ' + 4)
+  level4.position(player2_input.x + player2_input.width, 400)
+  level4.mousePressed(function() { start(4) })
+   
   createCanvas(1000, 500)
   frameRate(60)
 
@@ -55,23 +80,10 @@ function setup() {
   //Get the bricksTab from HTML
   bricksTab = jQuery('.class-bricks').data('bricks')
 
-  for (var i = 0; i < bricksTab.length; i++) {
-
-    brick.push(new Brick(bricksTab[i]))
-
-    if(this.power == 'teleport' || this.power == 'undestructible'){
-      undestructibleBricks++
-    }
-
-    //seek for the 2 teleport bricks, if they exist. Always in pair.
-    if(brick[i].power == 'teleport'){
-       idDest = teleportDestination(i, idDest)
-    }
-  }
+  // for (var i = 0; i < bricksTab.length; i++) {
 
   heart_ico = loadImage("heart.ico")
 
-  
 }
 
 
@@ -183,8 +195,11 @@ function restart(){
   
 }
 
-function start(){
+function start(p_schema){
+
   started = true
+
+  this.loadSchema(p_schema)
 
   //Choose players names
   player1.choosePlayerName(player1_input.value())
@@ -192,7 +207,39 @@ function start(){
 
   player1_input.hide()
   player2_input.hide()
-  button.hide()
+  
+  level1.hide()
+  level2.hide()
+  level3.hide()
+  level4.hide()
 
   loop()
+}
+
+function loadSchema(p_schema){
+
+  var i = 0;
+
+  console.log(bricksTab.length)
+
+  bricksTab.forEach(function(element){
+
+
+    if(element.schema_number == p_schema){
+
+      brick.push(new Brick(element))
+
+      if(this.power == 'teleport' || this.power == 'undestructible'){
+        undestructibleBricks++
+      }
+
+      //seek for the 2 teleport bricks, if they exist. Always in pair.
+      if(brick[i].power == 'teleport'){
+         idDest = teleportDestination(i, idDest)
+      }
+
+      i++;
+    }
+
+  })
 }

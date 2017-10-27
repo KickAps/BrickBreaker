@@ -27,8 +27,19 @@ class DefaultController extends Controller
 			$i++;
 		}
 
+        $sql = "SELECT schema_number FROM brick ORDER BY schema_number DESC LIMIT 1";
+
+        $em = $this->getDoctrine()->getManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        
+        $queryResult = $stmt->fetchAll(); 
+
+        $nbSchema= $queryResult[0]["schema_number"];
+
         return $this->render('@app_bundle/brick-breaker.html.twig', array(
         					'bricks' => $bricks,
+                            'nbSchema' => $nbSchema
         					));
     }
 }

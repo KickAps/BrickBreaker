@@ -18,7 +18,6 @@ class Brick
      */
     private $id;
 
-
     /**
      * @var int
      *
@@ -49,6 +48,13 @@ class Brick
      * @ORM\Column(name="power", type="text")
      */
     public $power;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="schema_number", type="integer")
+     */
+    public $schema_number;
 
 
     /**
@@ -123,6 +129,16 @@ class Brick
         return $this->hp;
     }
 
+    /**
+     * Get hp
+     *
+     * @return integer
+     */
+    public function getHp()
+    {
+        return $this->hp;
+    }
+
 
     /**
      * Set power
@@ -146,5 +162,29 @@ class Brick
     public function getPower()
     {
         return $this->power;
+    }
+
+    /**
+     * Set schemaNumber
+     *
+     * @param integer $schemaNumber
+     *
+     * @return Brick
+     */
+    public function setSchemaNumber($schemaNumber)
+    {
+        $this->schema_number = $schemaNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get schemaNumber
+     *
+     * @return integer
+     */
+    public function getSchemaNumber()
+    {
+        return $this->schema_number;
     }
 }
