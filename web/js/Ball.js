@@ -220,6 +220,7 @@ function Ball(){
 				previousPlayer.iHaveBall = false
 				previousPlayer.combo = 0
 
+
 				if(currentPlayer.direction == 'left'){
 
 					if(this.xspeed <= 0){

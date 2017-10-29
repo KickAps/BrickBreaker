@@ -26,6 +26,7 @@ function Player(playerNumber){
 				+ "\nwidth = " + this.w
 				+ "\nheight = " + this.h
 				+ "\nxspeed = " + this.xspeed
+				+ "\ndirection = " + this.direction
 				+ "\nscore = " + this.score
 				+ "\nlife = " + this.life
 				+ "\ncombo = " + this.combo

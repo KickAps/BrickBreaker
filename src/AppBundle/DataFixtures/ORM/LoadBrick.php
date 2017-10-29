@@ -59,6 +59,7 @@ class LoadBrick extends Fixture
             }
         }
 
+
         // scheme 3, teleport bricks test
         //brick 1
         $brick = new Brick();
@@ -78,14 +79,56 @@ class LoadBrick extends Fixture
         $brick->setSchemaNumber(3);
         $manager->persist($brick);
 
-        // scheme 4 only one brick
-        $brick = new Brick();
-        $brick->setXaxis(20);
-        $brick->setYaxis(20);
-        $brick->setHp(1);
-        $brick->setPower('');
-        $brick->setSchemaNumber(4);
-        $manager->persist($brick);
+
+
+        // scheme 4
+        for ($i = 0; $i < 7; $i++) {
+
+            for ($j = 0; $j < 12; $j++) {
+
+                if($i == 2 || $i == 4){
+
+                    continue;
+                }
+
+                $brick = new Brick();
+                $brick->setXaxis(20+$j*80);
+                $brick->setYaxis(50+$i*25);
+
+                
+                if($i == 3 && ($j == 1 || $j == 10) ){
+
+                    $brick->setPower('teleport');
+                }
+                else if($i == 3 && ($j != 1 || $j != 10) ){
+
+                    $brick->setPower('undestructible');
+                }
+                else if( ($i == 0 && $j == 3) 
+                            || ($i == 0 && $j == 8) ){
+
+                    $brick->setPower('cloneball');
+                }
+                else if( ($i == 5 && $j == 0) 
+                            || ($i == 6 && $j == 11) ){
+
+                    $brick->setPower('superball');
+                }
+                else if( ($i == 6 && $j == 0) 
+                            || ($i == 5 && $j == 11) ){
+
+                    $brick->setPower('slowball');
+                }
+                else{
+
+                    $brick->setPower('');
+                }
+
+                $brick->setSchemaNumber(4);
+                $brick->setHp(4);
+                $manager->persist($brick);
+            }
+        }
 
         $manager->flush();
     }
