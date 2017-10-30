@@ -60,24 +60,53 @@ class LoadBrick extends Fixture
         }
 
 
-        // scheme 3, teleport bricks test
-        //brick 1
-        $brick = new Brick();
-        $brick->setXaxis(20+2*80);
-        $brick->setYaxis(50+3*25);
-        $brick->setPower('teleport');
-        $brick->setHp(4);
-        $brick->setSchemaNumber(3);
-        $manager->persist($brick);
+        // scheme 3
+        for ($i = 0; $i < 8; $i++) {
 
-        // brick 2
-        $brick = new Brick();
-        $brick->setXaxis(20+9*80);
-        $brick->setYaxis(50+3*25);
-        $brick->setPower('teleport');
-        $brick->setHp(4);
-        $brick->setSchemaNumber(3);
-        $manager->persist($brick);
+            for ($j = 0; $j < 12; $j++) {
+                $brick = new Brick();
+                $brick->setXaxis(20+$j*80);
+                $brick->setYaxis(25+$i*25);
+
+                if( ( ($j == 2 || $j == 9) && ($i == 1 || $i == 2 || $i == 4 || $i == 5) )
+                        || ( ($j == 5 || $j == 6) && ($i == 1 || $i == 2 || $i == 4 || $i == 5) ) ){
+
+                    //void
+                    continue;
+                }
+                else if( $j == 3
+                        || $j ==  8
+                        || ($i == 7 && ($j == 1 || $j == 2 || $j == 9 || $j == 10) ) ){
+
+                    //undestructible
+                    $brick->setPower('undestructible');
+
+                }
+                else if( ($i == 3 && ($j == 1 || $j == 10) )
+                        || ( ($i == 0 || $i == 6) && ($j == 2 || $j == 9) ) ){
+
+                    //cloneball
+                    $brick->setPower('cloneball');
+                }
+                else if( $i == 3
+                        && ($j == 2 || $j == 5 || $j == 6 || $j == 9) ){
+
+                    //teleport
+                    $brick->setPower('teleport');
+                }
+                else{
+
+                    //other
+                    $brick->setPower('');
+                }
+
+                
+                $brick->setHp(2);
+                $brick->setSchemaNumber(3);
+
+                $manager->persist($brick);
+            }
+        }
 
 
 
@@ -96,7 +125,7 @@ class LoadBrick extends Fixture
                 $brick->setYaxis(50+$i*25);
 
                 
-                if($i == 3 && ($j == 1 || $j == 10) ){
+                if($i == 3 && ($j == 2 || $j == 9) ){
 
                     $brick->setPower('teleport');
                 }
@@ -124,8 +153,9 @@ class LoadBrick extends Fixture
                     $brick->setPower('');
                 }
 
-                $brick->setSchemaNumber(4);
+
                 $brick->setHp(2);
+                $brick->setSchemaNumber(4);
                 $manager->persist($brick);
             }
         }

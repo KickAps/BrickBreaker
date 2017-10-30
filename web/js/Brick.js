@@ -38,6 +38,8 @@ function Brick(bricks){
 		if(this.power != ''){
 			if(this.power == 'undestructible')
 	            fill(192,192,192) //SILVER
+	        else if(this.power == 'teleport')
+	            fill(0,206,209) //DARK TURQUOISE
 	        else
 	        	//other powers
 				fill(255,20,147) //DEEP PINK
