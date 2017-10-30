@@ -7,39 +7,40 @@ function isTheWinner(player){
 
   restart()
 
-  textAlign(CENTER);
+  var name = ''
+
+  textAlign(CENTER)
+  textSize(25);
   fill('WHITE')
 
-  title = text(player.name + ' WINS !', width/2, height/2 - 120)
+  if (player != 0){
+    name = player.name
+    score = player.score
+  }
+  else{
+    name = 'Noboby'
+    score = 0
+  }
+
+  title = text(name + ' WINS !', width/2, height/2 - 120)
 
   title = text("PRESS ENTER\nTO EXIT", width/2, height/2 - 50)
-  // var playerName = createElement('h2', player.name)
-  // var playerScore = createElement('h2', player.score)
-
-  //window.location.href = '/'
-  
-
-  //a = jQuery(document).find('h2');
 
   jQuery(document).ready(function() {
 
       var z = document.getElementById('menu');
       
-      z.innerHTML = "<li><a>"+player.name+" : "+player.score+"</a></li>";
+      z.innerHTML = "<li><a>"+name+" : "+score+"</a></li>";
 
   });
-  
-
-  
-  // for (i=0; i<a.length; i++){
-  //     alert(a[i])
-  // }
   
 }
 
 
 //Watch if someone wins
 function win(){
+
+  console.log(undestructibleBricks)
 
   // if no life anymore
   if(player2.life <= 0){
@@ -50,8 +51,7 @@ function win(){
   }
 
   // if no bricks anymore
-  if(brick.length - undestructibleBricks  == 0){ //
-  //if(false){
+  if(brick.length - undestructibleBricks  == 0){ 
 
     if(player1.score > player2.score){
       isTheWinner(player1)
@@ -60,7 +60,7 @@ function win(){
       isTheWinner(player2)
     }
     else
-      alert('!!! DRAW !!!')
+      isTheWinner(0)
   }
 
   if(keyIsDown(13)){ // ENTER

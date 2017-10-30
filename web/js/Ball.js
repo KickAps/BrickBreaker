@@ -72,6 +72,7 @@ function Ball(){
 		else{
 			textAlign(CENTER);
 			fill('WHITE')
+			textSize(25);
 			title = text("PRESS SPACE\nTO START", width/2, height/2 + 50)
 		}
 	}
@@ -121,6 +122,19 @@ function Ball(){
 		}
 
 		return collision;
+	}
+
+	this.ballRestart = function(){
+
+  		fill('WHITE')
+  		textSize(15);
+
+  		title = text("PRESS R TO RESTART", 5, 15)
+
+		if(keyIsDown(82)){
+			freezeGame(this, player1, player2)
+			this.init(width/2, height/2)
+		}
 	}
 
 	//Players collisions 

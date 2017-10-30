@@ -12,7 +12,7 @@ class LoadBrick extends Fixture
     {    
 
         // scheme 1, bricks spaced out
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 6; $i++) {
 
             for ($j = 0; $j < 10; $j++) {
                 $brick = new Brick();
@@ -52,7 +52,7 @@ class LoadBrick extends Fixture
                     $brick->setPower('');
 
                 
-                $brick->setHp(4);
+                $brick->setHp(2);
                 $brick->setSchemaNumber(2);
 
                 $manager->persist($brick);
@@ -125,7 +125,7 @@ class LoadBrick extends Fixture
                 }
 
                 $brick->setSchemaNumber(4);
-                $brick->setHp(4);
+                $brick->setHp(2);
                 $manager->persist($brick);
             }
         }

@@ -20,7 +20,7 @@ var height = 500
 var width = 1000
 
 //Margin for the ball collision
-var margin = 10
+var margin = 15
 
 //For the heart(life points) icon
 var heart_ico
@@ -79,8 +79,6 @@ function setup() {
 
   //Get the bricksTab from HTML
   bricksTab = jQuery('.class-bricks').data('bricks')
-
-  // for (var i = 0; i < bricksTab.length; i++) {
 
   heart_ico = loadImage("heart.ico")
 
@@ -141,6 +139,8 @@ function draw(){
       //alert(brick.length)
     }
 
+    console.log(brick.length)
+
     //Update and show players 
     player1.update(1)
     player1.show('RED')
@@ -154,6 +154,7 @@ function draw(){
     for( i=0 ; i<ballTab.length ; i++){
 
       var lastBallTabLength = ballTab.length
+      ballTab[i].ballRestart()
 
       switch (true) {
 
@@ -268,8 +269,6 @@ function loadSchema(p_schema){
 
   var i = 0;
 
-  console.log(bricksTab.length)
-
   bricksTab.forEach(function(element){
 
 
@@ -277,8 +276,9 @@ function loadSchema(p_schema){
 
       brick.push(new Brick(element))
 
-      if(this.power == 'teleport' || this.power == 'undestructible'){
+      if(brick[i].power == 'teleport' || brick[i].power == 'undestructible'){
         undestructibleBricks++
+
       }
 
       //seek for the 2 teleport bricks, if they exist. Always in pair.
